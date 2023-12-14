@@ -70,6 +70,7 @@ void	cub_map_parser(int file)
 int main(int ac, char const **av)
 {
 	int file;
+
 	if (ac != 2)
 		exit(EXIT_FAILURE);
 	file = check_file(av[1]);

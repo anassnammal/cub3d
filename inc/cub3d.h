@@ -5,14 +5,29 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-typedef struct s_scene
+typedef struct s_img
 {
 	void	*north;
-	char	*south;
-	char	*west;
-	char	*east;
+	void	*south;
+	void	*west;
+	void	*east;
+}	t_img;
+
+typedef struct s_point
+{
+	int x;
+	int y;
+}	t_point;
+
+typedef struct s_scene
+{
+	t_img	*images;
+	char	**map;
+	t_point max;
+
 	int 	floor;
 	int 	ceiling;
 }	t_scene;
+
 
 #endif
