@@ -18,7 +18,7 @@ int check_file(char const *file)
 	char	*start;
 
 	start = ft_strrchr(file, '.');
-	if (!start || ft_strncmp(start, ".cub", 5))
+	if (!start || file == start || ft_strncmp(start, ".cub", 5))
 		(printf("ERROR: ./cub3d *.ber"), exit(EXIT_FAILURE));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -26,7 +26,7 @@ int check_file(char const *file)
 	return (fd);
 }
 
-static int map_line_parser(const char *line)
+static int map_line_parser(t_scene *scene, const char *line)
 {
 	int i;
 
@@ -37,31 +37,17 @@ static int map_line_parser(const char *line)
 	}
 }
 
-static int	map_reader(t_list **list, int file)
+int	cub_map_parser(t_scene *scene, int file)
 {
 	char	*line;
-	t_list	*new;
 	int 	c;
 
 	c = 0;
 	while ((line = get_next_line(file)))
 	{
-		map_line_parser(line);
-		new = ft_lstnew(line);
-		if (!new)
-			(ft_lstclear(list, free), free(line), exit(EXIT_FAILURE));
-		ft_lstadd_back(list, new);
-		c++;
+		c += map_line_parser(scene, line);
 	}
 	return c;
-}
-
-void	cub_map_parser(int file)
-{
-	t_list *lines;
-
-	lines = NULL;
-	cub_map_reader(&lines, file);
 
 
 
@@ -70,10 +56,13 @@ void	cub_map_parser(int file)
 int main(int ac, char const **av)
 {
 	int file;
+	t_scene	scene;
+	t_img	images;
 
 	if (ac != 2)
 		exit(EXIT_FAILURE);
 	file = check_file(av[1]);
-	parse_map(file);
+	scene.images = &images;
+	parse_map(&scene, file);
 	return 0;
 }
