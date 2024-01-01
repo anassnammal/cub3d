@@ -6,7 +6,7 @@
 # include <fcntl.h>
 # include <mlx.h>
 
-
+# define FAIL 0xFFFFFFFF
 
 typedef struct s_point
 {
@@ -24,16 +24,12 @@ typedef struct s_img
 
 typedef struct s_map
 {
-    char **map;
+    char **content;
 	int x_max;
 	int y_max;
 }	t_map;
 
-typedef struct s_rgb
-{
-	unsigned int floor;
-	unsigned int ceiling;
-}	t_rgb;
+typedef unsigned int t_rgb;
 
 typedef struct s_scene
 {
@@ -41,7 +37,8 @@ typedef struct s_scene
     void    *win;
 	t_map	map;
 	t_img	imgs;
-	t_rgb   color;
+	t_rgb	floor;
+	t_rgb	ceiling;
 }	t_scene;
 
 
