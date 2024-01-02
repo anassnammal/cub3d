@@ -24,6 +24,11 @@ typedef struct s_map
 	int y_max;
 }	t_map;
 
+typedef struct s_pos{
+	size_t x;
+	size_t y;
+}t_pos;
+
 typedef struct s_scene
 {
     void    *mlx;

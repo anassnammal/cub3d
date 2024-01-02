@@ -6,7 +6,7 @@
 /*   By: aelmrabe <aelmrabe@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 18:59:18 by aelmrabe          #+#    #+#             */
-/*   Updated: 2024/01/02 15:37:05 by aelmrabe         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:27:29 by aelmrabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ typedef struct s_view{
     int j;
     int color;
 }t_view;
+
 
 #endif

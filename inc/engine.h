@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <stdbool.h>
+#include "prototype.h"
 
 typedef struct s_vector{
     double x;
