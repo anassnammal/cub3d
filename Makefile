@@ -9,7 +9,7 @@ OBJECTS=$(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
 LIBFT=libft.a
 
 CCOMPILER=cc
-CLIBRARY=-L$(LIBDIR) -lft
+CLIBRARY=-L$(LIBDIR) -lft -lmlx -lXext -lX11 -lm -lz
 CFLAGS=-g -Werror -Wall -Wextra
 
 
@@ -24,7 +24,7 @@ $(LIBFT):
 	make gnl -C $(LIBDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
-	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR)/ -o $@
+	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
 $(OBJDIR):
 	mkdir -p $@

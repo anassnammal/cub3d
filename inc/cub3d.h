@@ -6,8 +6,18 @@
 # include <fcntl.h>
 # include <mlx.h>
 
+# define EMPTY		0x0
+# define NORTH		0x1
+# define SOUTH		0x2
+# define WEST		0x4
+# define EAST		0x8
+# define FLOOR		0x10
+# define CEILING	0x20
+# define MAP		0x40
+# define ERROR		0x80
 
-typedef unsigned int	t_rgb;	
+typedef unsigned int	t_rgb;
+typedef unsigned char	t_ui8;
 
 typedef struct s_img
 {
@@ -19,15 +29,13 @@ typedef struct s_img
 
 typedef struct s_map
 {
-    char **content;
-	int x_max;
-	int y_max;
+    char	**content;
+	size_t	x_max;
+	size_t	y_max;
+	size_t	x_player;
+	size_t	y_player;
 }	t_map;
 
-typedef struct s_pos{
-	size_t x;
-	size_t y;
-}t_pos;
 
 typedef struct s_scene
 {
@@ -37,8 +45,8 @@ typedef struct s_scene
 	t_img	imgs;
 	t_rgb	floor;
 	t_rgb	ceiling;
+
 }	t_scene;
 
-void	*cub_get(void);
 
 #endif
