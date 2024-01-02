@@ -1,13 +1,8 @@
 #include "cub3d.h"
 
-void	*cub_get(void)
-{
-	static t_scene	data;
 
-	return (&data);
-}
 
-t_rgb	getrgb(char *s)
+t_rgb	loadrgb(char *s)
 {
 	t_rgb	color;    
 	short	tmp;    
@@ -85,33 +80,18 @@ int		scan_line(char *s, size_t pos[2])
 	return (1);
 }
 
-int		check_file(char const *s)
-{
-	int 	fd;
-	char	*start;
-
-	start = ft_strrchr(s, '.');
-	if (!start || s == start || ft_strncmp(start, ".cub", 5))
-		(printf("ERROR: ./cub3d *.cub"), exit(EXIT_FAILURE));
-	fd = open(s, O_RDONLY);
-	if (fd == -1)
-		(perror("ERROR"), exit(EXIT_FAILURE));
-	return (fd);
-}
-
-int		parser(int file)
+int		parse_line(int file)
 {
 	char	*line;
-	int 	state;
+	t_ui8	flag;
 
 	while ((line = get_next_line(file)))
 	{
-		if ((state = parse_line(line)) < 0)
-			
-
-		
+		if (flag |= load_settings(file))
+			return (free(line), 0);
+		free(line);
 	}
-	return state;
+	return (1);
 }
 
 int main(int ac, char const **av)
@@ -124,3 +104,12 @@ int main(int ac, char const **av)
 	parser(file);
 	return 0;
 }
+
+
+/*
+	
+
+	0000 0000
+
+
+*/
