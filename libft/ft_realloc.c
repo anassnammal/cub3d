@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 18:49:42 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 08:30:48 by anammal          ###   ########.fr       */
+/*   Created: 2023/10/14 09:48:39 by anammal           #+#    #+#             */
+/*   Updated: 2024/01/07 09:25:39 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	**ft_realloc(void **t, size_t l, size_t p)
 {
+	void	**new;
 	size_t	i;
 
-	i = 0;
-	while (i < n)
+	if (p == 0)
+		return (t);
+	new = ft_calloc(sizeof(void *), (l + p));
+	if (new)
 	{
-		if (*(unsigned char *)(s + i) == (unsigned char)c)
-			return ((void *)s + i);
-		i++;
+		i = -1;
+		while (++i < l)
+			*(new + i) = *(t + i);
+		ft_bzero(t, sizeof(void *) * l);
+		return (free(t), new);
 	}
-	return (0);
+	return (NULL);
 }

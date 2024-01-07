@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:17 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 06:32:57 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/07 09:56:24 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	cub_exit(t_ui8 scene)
 		mlx_destroy_image(data->mlx, data->imgs.ea);
 	else if (scene == MAP)
 	{
-		ft_free2d(data->map.content);
-		mlx_destroy_window(data->mlx, data->win);
+		ft_strsfree(data->map.content);
+		// mlx_destroy_window(data->mlx, data->win);
 	}
 }
 

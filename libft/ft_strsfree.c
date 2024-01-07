@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realoc.c                                        :+:      :+:    :+:   */
+/*   ft_strsfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anammal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/14 09:48:39 by anammal           #+#    #+#             */
-/*   Updated: 2023/10/14 09:48:42 by anammal          ###   ########.fr       */
+/*   Created: 2023/05/19 23:00:12 by anammal           #+#    #+#             */
+/*   Updated: 2024/01/07 09:32:49 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	**ft_realloc(void **t, int l, int p)
+void	ft_strsfree(char **strs)
 {
-	void	**new;
-	int		i;
+	int	i;
 
-	if (p <= 0)
-		return (t);
-	new = ft_calloc(sizeof(void *), (l + p));
-	if (new)
+	i = 0;
+	while (*(strs + i) != NULL)
 	{
-		i = -1;
-		while (++i < l)
-			*(new + i) = *(t + i);
-		ft_bzero(t, sizeof(void *) * l);
-		return (free(t), new);
+		ft_bzero(strs, ft_strlen(*(strs + i)));
+		free(*(strs + i));
+		*(strs + i) = NULL;
+		i++;
 	}
-	return (NULL);
+	free(strs);
 }

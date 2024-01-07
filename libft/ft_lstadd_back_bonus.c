@@ -9,6 +9,7 @@
 /*   Updated: 2022/10/21 03:07:13 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)

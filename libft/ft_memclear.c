@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anammal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:00:12 by anammal           #+#    #+#             */
-/*   Updated: 2023/05/19 23:00:20 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/07 09:11:06 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_free2d(void **ptr)
+void	ft_memclear(void **ptr, size_t size)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (*(ptr + i) != NULL)
+	while (i < size)
 	{
 		free(*(ptr + i));
 		*(ptr + i) = NULL;

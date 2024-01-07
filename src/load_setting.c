@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:32 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 06:18:41 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/07 09:55:00 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_ui8	load_setting(char *s, t_ui8 state)
 		s[i++] = 0;
 	if ((type && i == 0) || s[i] || state & type)
 		return (ERROR);
-	return (type);
+	if (!type)
+		return (EMPTY);
 	return (set_setting(s, type));
 }

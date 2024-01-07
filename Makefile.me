@@ -12,6 +12,7 @@ CCOMPILER=cc
 CLIBRARY=-L$(LIBDIR) -lft -lmlx -lXext -lX11 -lm -lz
 CFLAGS=-g -Werror -Wall -Wextra
 
+
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJDIR) $(OBJECTS)
@@ -23,7 +24,7 @@ $(LIBFT):
 	make gnl -C $(LIBDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
-	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR) -I $(LIBDIR) -o $@
+	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
 $(OBJDIR):
 	mkdir -p $@

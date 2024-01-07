@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anammal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 03:08:12 by anammal           #+#    #+#             */
-/*   Updated: 2022/10/21 03:08:13 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/07 08:30:57 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 #include "libft.h"
 
 t_list	*ft_lstnew(void *content)

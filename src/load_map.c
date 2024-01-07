@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:35 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 06:33:20 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/07 08:53:38 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_ui8	export_map(t_map *map, t_list *list)
 	{
 		map->content[i] = ft_calloc(map->x_max, sizeof(char));
 		if (!map->content[i])
-			return (ft_free2d((void **)map->content), ERROR);
+			return (ft_strsfree(map->content), ERROR);
 		copy_map_line(map->content[i], list->content);
 		list = list->next;
 		i++;
