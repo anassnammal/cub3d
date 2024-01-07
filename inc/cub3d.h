@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
+/*   Updated: 2024/01/07 06:28:57 by anammal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 #define CUB3D_H
 
@@ -48,5 +60,10 @@ typedef struct s_scene
 
 }	t_scene;
 
+void	*cub_get(void);
+void	cub_exit(t_ui8 scene);
+t_ui8   load_scene(int file);
+t_ui8   load_setting(char *s, t_ui8 state);
+t_ui8   load_map(t_list *list);
 
 #endif
