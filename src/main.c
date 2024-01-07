@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:17 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 09:56:24 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/07 21:55:15 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int main(int ac, char const **av)
 		}
 		printf("\n"); 
 	}
+    cub_exit(scene);
 	return 0;
 }

@@ -7,10 +7,14 @@ HEADER=$(INCDIR)/$(NAME:=.h)
 SOURCES=$(wildcard $(SRCDIR)/*.c)
 OBJECTS=$(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
 LIBFT=libft.a
-
 CCOMPILER=cc
-CLIBRARY=-L$(LIBDIR) -lft -lmlx -lXext -lX11 -lm -lz
-CFLAGS=-g -Werror -Wall -Wextra
+TARGET=$(shell uname)
+ifeq ($(TARGET), Darwin)
+	CLIBRARY=-L$(LIBDIR) -lft -lmlx -framework OpenGL -framework AppKit
+else
+	CLIBRARY=-L$(LIBDIR) -lft -lmlx -lXext -lX11 -lm -lz
+endif
+CFLAGS=-g -Werror -Wall -Wextra -fsanitize=address,undefined
 
 all: $(NAME)
 
