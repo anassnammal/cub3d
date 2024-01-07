@@ -9,8 +9,8 @@ OBJECTS=$(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
 LIBFT=libft.a
 
 CCOMPILER=cc
-CLIBRARY=-L$(LIBDIR) -lft -lmlx -lXext -lX11 -lm -lz
-CFLAGS=-g -Werror -Wall -Wextra
+CLIBRARY=-L$(LIBDIR) -lft -lmlx -framework OpenGL -framework AppKit
+CFLAGS=-g -Werror -Wall -Wextra -g -fsanitize=address,undefined
 
 
 all: $(NAME)
@@ -24,7 +24,7 @@ $(LIBFT):
 	make gnl -C $(LIBDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
-	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR) -o $@
+	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR) -I $(LIBDIR) -o $@
 
 $(OBJDIR):
 	mkdir -p $@

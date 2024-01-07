@@ -188,27 +188,24 @@ t_ui8   export(t_map *map, t_list *list)
 
 t_ui8   check_line(t_map *map, size_t x, size_t y)
 {
-    if (!ft_memchr("10NSWE", map->content[y][x], 7))
-        return (ERROR);
-    if (y == 0 || map->y_max == y)
+    if (ft_memchr("NSWE", map->content[y][x], 4))
     {
-        if (map->content[y][x] != 0 && map->content[y][x] != 49)
+        if (map->y_player || map->x_player)
             return (ERROR);
-    }
-    else if (ft_strchr("NSWE", map->content[y][x]))
-    {
-        map->y_player = y;
         map->x_player = x;
+        map->y_player = y;
     }
-    else if (map->content[y][x] == 48)
-    {
-        if (x == 0 || x == map->x_max
-            || map->content[y + 1][x] == 0
-            || map->content[y - 1][x] == 0
-            || map->content[y][x + 1] == 0
-            || map->content[y][x - 1] == 0)
-            return (ERROR);
-    }
+    else if (!ft_memchr("10", map->content[y][x], 3))
+        return (ERROR);
+    if ((map->content[y][x] != 0
+        && map->content[y][x] != 49
+        && (x == 0 || x == map->x_max - 1
+        || y == 0 || map->y_max - 1 == y
+        || map->content[y + 1][x] == 0
+        || map->content[y - 1][x] == 0
+        || map->content[y][x + 1] == 0
+        || map->content[y][x - 1] == 0)))
+        return (ERROR);
     return (MAP);
 }
 
@@ -229,6 +226,8 @@ t_ui8   validate(t_map *map)
         }
         y++;
     }
+    if (!map->x_player)
+        return (MAP | ERROR);
     return (MAP);
 }
 
@@ -273,11 +272,11 @@ t_ui8   load_scene(int file)
     list = NULL;
     while ((line = get_next_line(file)) && scene < MAP)
         scene |= add_node(&list, line);
-    while ((line = get_next_line(file)) && isempty(line))
-        free(line);
-    if (line || scene & ERROR)
-        return (free(line), ERROR);
     scene &= ~MAP;
+    while (line && isempty(line))
+        (free(line), line = get_next_line(file));
+    if (scene & ERROR || line || !list)
+        return (ft_lstclear(&list, free) ,free(line), scene | ERROR);
     return ((scene |= loadmap(list)));
 }
 
@@ -289,10 +288,10 @@ int main(int ac, char const **av)
 		exit(EXIT_FAILURE);
 	file = check_file(av[1]);
     t_scene *data = cub_get();
-    data->mlx = mlx_init();
+    // data->mlx = mlx_init();
     scene = load_scene(file);
     close(file);
-	printf("%d\n", scene);
+	printf("status %d\n", scene);
     if (scene & ERROR)
         exit(1);
     t_ui8    *f = (t_ui8 *)&(data->floor);
@@ -308,7 +307,7 @@ int main(int ac, char const **av)
             else
                 printf(" ");
         }
-        printf("\n");
+        printf("\n"); 
     }
     
 	return 0;

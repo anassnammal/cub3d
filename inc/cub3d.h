@@ -16,7 +16,7 @@
 # define MAP		0x40
 # define ERROR		0x80
 
-typedef unsigned int	t_rgb;
+typedef unsigned int    t_rgb;
 typedef unsigned char	t_ui8;
 
 typedef struct s_img
