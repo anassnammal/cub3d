@@ -82,7 +82,7 @@ int main(int ac, char const **av)
 			else
 				printf(" ");
 		}
-		printf("\n"); 
+		printf("\n");
 	}
     cub_exit(scene);
 	return 0;
