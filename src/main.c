@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:17 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 21:55:15 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/09 01:42:27 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	cub_exit(t_ui8 scene)
 		ft_strsfree(data->map.content);
 		// mlx_destroy_window(data->mlx, data->win);
 	}
+    exit(EXIT_FAILURE);
 }
 
 int main(int ac, char const **av)

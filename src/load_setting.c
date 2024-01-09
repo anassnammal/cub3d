@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:32 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 09:55:00 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/09 00:43:29 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_ui8	load_rgb(t_rgb *ptr, char *s, t_ui8 type)
 
 	*ptr = 0;
 	c = 3;
-	while (*s && c--)
+	while (*s && *s != 44 && c--)
 	{
 		tmp = 0;
 		while (ft_isdigit(*s) && tmp <= 0xFF)

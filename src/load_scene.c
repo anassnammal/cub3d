@@ -6,13 +6,13 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:24 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/07 09:28:47 by anammal          ###   ########.fr       */
+/*   Updated: 2024/01/09 00:47:53 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	isempty(char *s)
+static t_ui8	isempty(char *s)
 {
 	while (ft_isspace(*s))
 		s++;
