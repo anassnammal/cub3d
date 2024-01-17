@@ -1,7 +1,16 @@
 #include "../../inc/engine.h"
 #include "../../inc/cub3d.h"
 
-// TODO: Merge the engine headerfile and cub3d headerfile into one headerfile.  
+// TODO: Merge the engine headerfile and cub3d headerfile into one headerfile.
+
+/* 
+    idea : i will check with anass if i he can call this function (getting_player)
+    in the parsing part cuz i need it just one time a raycasting function will be called
+    multiple times so this function can make some problem cuz will change dir and pos 
+    every time i call it so i will try to call it just one time in the parsing part
+*/
+
+
 /* 
 ** This function is used to get the player position and direction
 ** from the map. using the x and y that is given by the parsing map.
@@ -51,4 +60,26 @@ void getting_player(t_scene *scene, t_player *player)
         player->dir.x = SCALE / 4;
     if (scene->map.content[x][y] == 'S')
         player->dir.x = SCALE / 4;
+}
+
+t_vector p_pos(t_player player)
+{
+    t_vector tmp;
+    t_vector dir;
+    double dtmp;
+
+
+    /* 
+        at this step i need to know the pos of player
+        on the map to start ray casting so every time 
+        i will call this function from main raycasting
+        function and i will get the postion of player 
+
+        what i have :
+            * i have a vector that represent to direction of player
+            * also i have FOV of the player 
+            * also i have the WIDTH of the screen 
+        
+        so
+    */
 }
