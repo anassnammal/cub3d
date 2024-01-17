@@ -57,7 +57,6 @@ typedef struct s_scene
 	t_img	imgs;
 	t_rgb	floor;
 	t_rgb	ceiling;
-
 }	t_scene;
 
 void	*cub_get(void);

@@ -3,25 +3,20 @@
 
 #include <math.h>
 #include <stdbool.h>
-#include "prototype.h"
+#include "./prototype.h"
+#include "./struct.h"
+
+#define SCALE 100
 
 typedef struct s_vector{
     double x;
     double y;
 }t_vector;
 
-typedef struct s_vecstack{
-    t_vector *vec;
-    t_vector strich;
-    t_vector first_inter;
-}t_vecstack;
-
-typedef struct s_img{
-    void *ptr;
-    char *addr;
-    int bits_per_pixel;
-    int line_length;
-    int endian;
-}t_img;
+typedef struct s_player{
+    int move;
+    t_vector dir;
+    t_vector pos;
+}t_player;
 
 #endif // ENGINE_H
