@@ -25,7 +25,7 @@ static void	copy_map_line(char *dest, char *src)
 	}
 }
 
-static t_ui8	export_map(t_map *map, t_list *list)
+static uint8_t	export_map(t_map *map, t_list *list)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ static t_ui8	export_map(t_map *map, t_list *list)
 	return (MAP);
 }
 
-static t_ui8	check_line(t_map *map, size_t x, size_t y)
+static uint8_t	check_line(t_map *map, size_t x, size_t y)
 {
 	if (ft_memchr("NSWE", map->content[y][x], 4))
 	{
@@ -68,7 +68,7 @@ static t_ui8	check_line(t_map *map, size_t x, size_t y)
 	return (MAP);
 }
 
-static t_ui8	validate_map(t_map *map)
+static uint8_t	validate_map(t_map *map)
 {
 	size_t	x;
 	size_t	y;
@@ -90,7 +90,7 @@ static t_ui8	validate_map(t_map *map)
 	return (MAP);
 }
 
-t_ui8	load_map(t_list *list)
+uint8_t	load_map(t_list *list)
 {
 	t_scene	*data;
 	t_list	*tmp;

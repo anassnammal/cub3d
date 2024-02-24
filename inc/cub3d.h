@@ -16,7 +16,8 @@
 # include "libft.h"
 # include <stdio.h>
 # include <fcntl.h>
-# include <mlx.h>
+# include <inttypes.h>
+# include <MLX42/MLX42.h>
 
 # define EMPTY		0x0
 # define NORTH		0x1
@@ -29,15 +30,15 @@
 # define ERROR		0x80
 
 typedef unsigned int    t_rgb;
-typedef unsigned char	t_ui8;
+typedef unsigned char	uint8_t;
 
-typedef struct s_img
+typedef struct s_txt
 {
-	void	*no;
-	void	*so;
-	void	*we;
-	void	*ea;
-}	t_img;
+	mlx_image_t	*no;
+	mlx_image_t	*so;
+	mlx_image_t	*we;
+	mlx_image_t	*ea;
+}	t_txt;
 
 typedef struct s_map
 {
@@ -51,18 +52,18 @@ typedef struct s_map
 
 typedef struct s_scene
 {
-    void    *mlx;
-    void    *win;
-	t_map	map;
-	t_img	imgs;
-	t_rgb	floor;
-	t_rgb	ceiling;
+    mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_map		map;
+	t_txt		txt;
+	t_rgb		floor;
+	t_rgb		ceiling;
 }	t_scene;
 
 void	*cub_get(void);
-void	cub_exit(t_ui8 scene);
-t_ui8   load_scene(int file);
-t_ui8   load_setting(char *s, t_ui8 state);
-t_ui8   load_map(t_list *list);
+void	cub_exit(uint8_t scene);
+uint8_t   load_scene(int file);
+uint8_t   load_setting(char *s, uint8_t state);
+uint8_t   load_map(t_list *list);
 
 #endif

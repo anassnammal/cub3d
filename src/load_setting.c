@@ -12,23 +12,30 @@
 
 #include "cub3d.h"
 
-static t_ui8	load_xpm(void *mlx, void **img, char *xpm, t_ui8 type)
+static mlx_image_t	*load_textures(mlx_t *mlx, char *xpm, uint8_t *t)
 {
-	int	w;
-	int	h;
+	xpm_t		*txt;
+	mlx_image_t	*img;
 
-	*img = mlx_xpm_file_to_image(mlx, xpm, &w, &h);
-	// if (!*img)
-	// 	return (ft_putendl_fd("ERROR: invalid xpm file", 1), ERROR);
-	return (type);
+	img = NULL;
+	txt = mlx_load_xpm42(xpm);
+	if (txt)
+	{
+		img = mlx_texture_to_image(mlx, txt);
+		mlx_delete_xpm42(txt);
+	}
+	if (!img)
+		(ft_putendl_fd(mlx_strerror(mlx_errno), 1), *t = ERROR);
+	return (img);
 }
 
-static t_ui8	load_rgb(t_rgb *ptr, char *s, t_ui8 type)
+static unsigned int	load_rgb(char *s, uint8_t *t)
 {
-	short	tmp;
-	short	c;
+	unsigned int	n;
+	short			tmp;
+	short			c;
 
-	*ptr = 0;
+	n = 0;
 	c = 3;
 	while (*s && *s != 44 && c--)
 	{
@@ -36,76 +43,83 @@ static t_ui8	load_rgb(t_rgb *ptr, char *s, t_ui8 type)
 		while (ft_isdigit(*s) && tmp <= 0xFF)
 			tmp = tmp * 10 + (*s++ - 48);
 		if (tmp > 0xFF)
-			return (ERROR);
-		*ptr |= tmp << c * 8;
+			*t = ERROR;
+		n |= tmp << c * 8;
 		s += (*s == ',' && c != 0);
 	}
 	if (*s || c != 0)
-		return (ERROR);
-	return (type);
+		*t = ERROR;
+	return (n);
 }
 
-static t_ui8	get_type(char **s)
+char	*get_token(char *data)
 {
-	while (ft_isspace(**s))
-		(*s)++;
-	if (!**s)
+	static char *buff;
+	char		*token;
+
+	if (data)
+		buff = data;
+	while (ft_isspace(*buff))
+		buff++;
+	token = buff;
+	while (*buff && !ft_isspace(*buff))
+		buff++;
+	*buff = 0;
+	if (*token)
+		return token;
+	return (NULL);
+}
+
+uint8_t		identify_line(char *s)
+{
+	if (!s)
 		return (EMPTY);
+	else if (*s == 49)
+		return (MAP);
 	else if (!ft_strncmp(*s, "NO ", 3))
-		return (((*s) += 2), NORTH);
+		return (NORTH);
 	else if (!ft_strncmp(*s, "SO ", 3))
-		return (((*s) += 2), SOUTH);
+		return (SOUTH);
 	else if (!ft_strncmp(*s, "WE ", 3))
-		return (((*s) += 2), WEST);
+		return (WEST);
 	else if (!ft_strncmp(*s, "EA ", 3))
-		return (((*s) += 2), EAST);
+		return (EAST);
 	else if (!ft_strncmp(*s, "F ", 2))
-		return (((*s) += 1), FLOOR);
+		return (FLOOR);
 	else if (!ft_strncmp(*s, "C ", 2))
-		return (((*s) += 1), CEILING);
+		return (CEILING);
 	return (ERROR);
 }
 
-static t_ui8	set_setting(char *s, t_ui8 type)
+static void		set_setting(char *s, uint8_t *type)
 {
 	t_scene	*data;
 
 	data = cub_get();
-	if (type == NORTH)
-		type = load_xpm(data->mlx, &data->imgs.no, s, type);
-	else if (type == SOUTH)
-		type = load_xpm(data->mlx, &data->imgs.so, s, type);
-	else if (type == WEST)
-		type = load_xpm(data->mlx, &data->imgs.we, s, type);
-	else if (type == EAST)
-		type = load_xpm(data->mlx, &data->imgs.ea, s, type);
-	else if (type == FLOOR)
-		type = load_rgb(&data->floor, s, type);
-	else if (type == CEILING)
-		type = load_rgb(&data->ceiling, s, type);
-	else
-		type = ERROR;
-	return (type);
+	if (*type == NORTH)
+		data->txt.no = load_textures(data->mlx, s, type);
+	else if (*type == SOUTH)
+		data->txt.so = load_textures(data->mlx, s, type);
+	else if (*type == WEST)
+		data->txt.we = load_textures(data->mlx, s, type);
+	else if (*type == EAST)
+		data->txt.ea = load_textures(data->mlx, s, type);
+	else if (*type == FLOOR)
+		data->floor = load_rgb(s, type);
+	else if (*type == CEILING)
+		data->ceiling = load_rgb(s, type);
 }
 
-t_ui8	load_setting(char *s, t_ui8 state)
+uint8_t	load_setting(char *s, uint8_t type)
 {
-	t_ui8	type;
 	size_t	i;
 
 	i = 0;
 	if (!s)
 		return (ERROR);
-	type = get_type(&s);
-	while (ft_isspace(*s))
-		*s++ = 0;
-	while (s[i] && !ft_isspace(s[i]))
-		i++;
-	while (ft_isspace(s[i]))
-		s[i++] = 0;
-	if ((type && i == 0) || s[i] || state & type)
-		return (ERROR);
-	if (!type)
-		return (EMPTY);
-	return (set_setting(s, type));
+
+
+
+	set_setting(s, &type);
+	return (type);
 }

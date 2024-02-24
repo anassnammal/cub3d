@@ -33,23 +33,23 @@ void	*cub_get(void)
 	return (&data);
 }
 
-void	cub_exit(t_ui8 scene)
+void	cub_exit(uint8_t scene)
 {
 	t_scene	*data;
 
 	data = cub_get();	
 	if (scene == NORTH)
-		mlx_destroy_image(data->mlx, data->imgs.no);
+		mlx_delete_image(data->mlx, data->txt.no);
 	else if (scene == SOUTH)
-		mlx_destroy_image(data->mlx, data->imgs.so);
+		mlx_delete_image(data->mlx, data->txt.so);
 	else if (scene == WEST)
-		mlx_destroy_image(data->mlx, data->imgs.we);
+		mlx_delete_image(data->mlx, data->txt.we);
 	else if (scene == EAST)
-		mlx_destroy_image(data->mlx, data->imgs.ea);
+		mlx_delete_image(data->mlx, data->txt.ea);
 	else if (scene == MAP)
 	{
 		ft_strsfree(data->map.content);
-		// mlx_destroy_window(data->mlx, data->win);
+		mlx_terminate(data->mlx);
 	}
     exit(EXIT_FAILURE);
 }
@@ -57,7 +57,7 @@ void	cub_exit(t_ui8 scene)
 int main(int ac, char const **av)
 {
 	int		file;
-	t_ui8   scene;
+	uint8_t   scene;
 	if (ac != 2)
 		exit(EXIT_FAILURE);
 	file = check_file(av[1]);
@@ -69,8 +69,8 @@ int main(int ac, char const **av)
 	if (scene & ERROR)
 		cub_exit(scene);
 	// data->win = mlx_new_window(data->mlx, data->map.x_max * 32, data->map.y_max * 32, "cub3d");
-	t_ui8    *f = (t_ui8 *)&(data->floor);
-	t_ui8    *c = (t_ui8 *)&(data->ceiling);
+	uint8_t    *f = (uint8_t *)&(data->floor);
+	uint8_t    *c = (uint8_t *)&(data->ceiling);
 	printf("%d,%d,%d,%d\n", f[3], f[2], f[1], f[0]);
 	printf("%d,%d,%d,%d\n", c[3], c[2], c[1], c[0]);
 	for (size_t i = 0; i < data->map.y_max; i++)

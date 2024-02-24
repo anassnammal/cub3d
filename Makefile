@@ -1,45 +1,51 @@
-NAME=cub3d
-INCDIR=inc
-SRCDIR=src
-OBJDIR=obj
-LIBDIR=libft
-HEADER=$(INCDIR)/$(NAME:=.h)
-SOURCES=$(wildcard $(SRCDIR)/*.c)
-OBJECTS=$(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
-LIBFT=libft.a
-CCOMPILER=cc
-TARGET=$(shell uname)
-ifeq ($(TARGET), Darwin)
-	CLIBRARY=-L$(LIBDIR) -lft -lmlx -framework OpenGL -framework AppKit
+NAME		:= cub3d
+INCDIR		:= inc
+SRCDIR		:= src
+OBJDIR		:= obj
+LIBDIR		:= lib
+LIBMLX		:= $(LIBDIR)/MLX42
+LIBFT		:= $(LIBDIR)/libft
+HEADERS		:= $(wildcard $(INCDIR)/*.h)
+SOURCES		:= $(wildcard $(SRCDIR)/*.c)
+OBJECTS		:= $(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
+CCOMPILER	:= cc
+CFLAGS		:= -g -Werror -Wall -Wextra -fsanitize=address,undefined
+INCFLAG		:= -I$(INCDIR) -I$(LIBFT) -I$(LIBMLX)/include
+
+ifeq ($(shell uname), Darwin)
+	CLIBRARY:=-L$(LIBFT) -L$(LIBMLX)/build -lft -lmlx42 -lglfw
 else
-	CLIBRARY=-L$(LIBDIR) -lft -lmlx -lXext -lX11 -lm -lz
+	CLIBRARY:=-L$(LIBDIR) -lft -lmlx42 -ldl -lglfw -pthread -lm
 endif
-CFLAGS=-g -Werror -Wall -Wextra -fsanitize=address,undefined
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJDIR) $(OBJECTS)
 	$(CCOMPILER) $(CFLAGS) $(OBJECTS) $(CLIBRARY) -o $@
 
-$(LIBFT):
-	make -C $(LIBDIR)
-	make bonus -C $(LIBDIR)
-	make gnl -C $(LIBDIR)
+libft:
+	make -C $(LIBFT)
+	make bonus -C $(LIBFT)
+	make gnl -C $(LIBFT)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
-	$(CCOMPILER) $(CFLAGS) -c $< -I $(INCDIR) -I $(LIBDIR) -o $@
+libmlx:
+	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
+	$(CCOMPILER) $(CFLAGS) -c $< $(INCFLAG) -o $@
 
 $(OBJDIR):
 	mkdir -p $@
 
 clean:
-	make clean -C $(LIBDIR)
+	make clean -C $(LIBFT)
 	rm -rf $(OBJDIR)
 
 fclean: clean
-	make fclean -C $(LIBDIR)
+	make fclean -C $(LIBFT)
+	rm -rf $(LIBMLX)/build
 	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all libft libmlx clean fclean re
