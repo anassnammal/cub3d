@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/09 01:36:14 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:05:35 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct s_scene
 
 void	*cub_get(void);
 void	cub_exit(uint8_t scene);
-uint8_t   load_scene(int file);
-uint8_t   load_setting(char *s, uint8_t state);
-uint8_t   load_map(t_list *list);
+uint8_t	load_scene(int file);
+uint8_t	load_setting(char *s, uint8_t *scene);
+uint8_t	load_map(t_list *list);
 
 #endif

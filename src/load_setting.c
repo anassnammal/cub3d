@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:32 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/09 00:43:29 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:37:52 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,46 +52,26 @@ static unsigned int	load_rgb(char *s, uint8_t *t)
 	return (n);
 }
 
-char	*get_token(char *data)
-{
-	static char *buff;
-	char		*token;
-
-	if (data)
-		buff = data;
-	while (ft_isspace(*buff))
-		buff++;
-	token = buff;
-	while (*buff && !ft_isspace(*buff))
-		buff++;
-	*buff = 0;
-	if (*token)
-		return token;
-	return (NULL);
-}
-
-uint8_t		identify_line(char *s)
+static uint8_t		identify_line(char *s)
 {
 	if (!s)
 		return (EMPTY);
-	else if (*s == 49)
-		return (MAP);
-	else if (!ft_strncmp(*s, "NO ", 3))
+	else if (!ft_strncmp(*s, "NO", 3))
 		return (NORTH);
-	else if (!ft_strncmp(*s, "SO ", 3))
+	else if (!ft_strncmp(*s, "SO", 3))
 		return (SOUTH);
-	else if (!ft_strncmp(*s, "WE ", 3))
+	else if (!ft_strncmp(*s, "WE", 3))
 		return (WEST);
-	else if (!ft_strncmp(*s, "EA ", 3))
+	else if (!ft_strncmp(*s, "EA", 3))
 		return (EAST);
-	else if (!ft_strncmp(*s, "F ", 2))
+	else if (!ft_strncmp(*s, "F", 2))
 		return (FLOOR);
-	else if (!ft_strncmp(*s, "C ", 2))
+	else if (!ft_strncmp(*s, "C", 2))
 		return (CEILING);
 	return (ERROR);
 }
 
-static void		set_setting(char *s, uint8_t *type)
+static void			set_setting(char *s, uint8_t *type)
 {
 	t_scene	*data;
 
@@ -110,16 +90,24 @@ static void		set_setting(char *s, uint8_t *type)
 		data->ceiling = load_rgb(s, type);
 }
 
-uint8_t	load_setting(char *s, uint8_t type)
+uint8_t				load_setting(char *s, uint8_t *scene)
 {
-	size_t	i;
+	uint8_t	type;
+	char	*token;
 
-	i = 0;
 	if (!s)
 		return (ERROR);
-
-
-
-	set_setting(s, &type);
-	return (type);
+	token = ft_strtok(s);
+	type = identify_line(token);
+	if (type == EMPTY)
+		return (free(s), EMPTY);
+	else if (*scene & type)
+		return (free(s), ERROR);
+	token = ft_strtok(NULL);
+	if (!token)
+		return (free(s), ERROR);
+	set_setting(token, &type);
+	if (ft_strtok(NULL))
+		type |= ERROR;
+	return (free(s), type);
 }

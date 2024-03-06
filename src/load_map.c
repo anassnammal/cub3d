@@ -6,13 +6,13 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:35 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/09 01:35:53 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:09:06 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	copy_map_line(char *dest, char *src)
+static void		copy_map_line(char *dest, char *src)
 {
 	while (*src)
 	{
@@ -90,7 +90,7 @@ static uint8_t	validate_map(t_map *map)
 	return (MAP);
 }
 
-uint8_t	load_map(t_list *list)
+uint8_t			load_map(t_list *list)
 {
 	t_scene	*data;
 	t_list	*tmp;

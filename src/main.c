@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:17 by anammal           #+#    #+#             */
-/*   Updated: 2024/01/09 01:42:27 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:34:24 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,6 @@ static int	check_file(char const *s)
 	if (fd == -1)
 		(perror("ERROR"), exit(EXIT_FAILURE));
 	return (fd);
-}
-
-void	*cub_get(void)
-{
-	static t_scene	data;
-
-	return (&data);
-}
-
-void	cub_exit(uint8_t scene)
-{
-	t_scene	*data;
-
-	data = cub_get();	
-	if (scene == NORTH)
-		mlx_delete_image(data->mlx, data->txt.no);
-	else if (scene == SOUTH)
-		mlx_delete_image(data->mlx, data->txt.so);
-	else if (scene == WEST)
-		mlx_delete_image(data->mlx, data->txt.we);
-	else if (scene == EAST)
-		mlx_delete_image(data->mlx, data->txt.ea);
-	else if (scene == MAP)
-	{
-		ft_strsfree(data->map.content);
-		mlx_terminate(data->mlx);
-	}
-    exit(EXIT_FAILURE);
 }
 
 int main(int ac, char const **av)
