@@ -46,15 +46,16 @@ void draw_map(t_scene *d, uint32_t i, uint32_t j)
 	while (x < MAP)
 	{
 		y = 0;
+		printf("map[%d][%d]\n", i, j);
 		while (y < MAP)
 		{
-			printf("draw_map[%d][%d]\n", i, j);
-			mlx_put_pixel(d->img, x * i, y * j, c);
+			printf("x[%d] y[%d]\n", i * 64 + x, j * 64 + y);
+			mlx_put_pixel(d->img, i * 64 + x, j * 64 + y, c);
 			y++;
 		}
 		x++;
 	}
-	if (j < d->map.y_max)
+	if (j < d->map.y_max - 1)
 		j++;
 	else
 		(j = 0, i++);

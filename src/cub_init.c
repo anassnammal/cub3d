@@ -12,8 +12,8 @@ void	cub_init(void)
 	t_scene *data;
 
 	data = cub_get();
-	data->mlx = mlx_init(data->map.x_max * 32, data->map.y_max * 32, "cub3d", false);
-	data->img = mlx_new_image(data->mlx, data->map.x_max * 32, data->map.y_max * 32);
+	data->mlx = mlx_init(data->map.x_max * MAP, data->map.y_max * MAP, "cub3d", false);
+	data->img = mlx_new_image(data->mlx, data->map.x_max * MAP, data->map.y_max * MAP);
 	data->player = mlx_new_image(data->mlx, 2, 2);
 	draw_player(data->player, data->map.x_player, data->map.y_player);
 	if (!data->img)
