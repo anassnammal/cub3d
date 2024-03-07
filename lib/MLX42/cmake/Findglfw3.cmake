@@ -15,8 +15,8 @@ set(_glfw3_HEADER_SEARCH_DIRS
 "/usr/local/include"
 "C:/Program Files/GLFW/include"
 "C:/Program Files (x86)/GLFW/include"
-"$ENV{HOME}/.brew/include/"
-"$ENV{HOME}/homebrew/include/"
+"$ENV{HOME}/goinfre/.brew/include/"
+"$ENV{HOME}/goinfre/homebrew/include/"
 )
 
 # Possbile library locations
@@ -25,8 +25,8 @@ set(_glfw3_LIB_SEARCH_DIRS
 "/usr/local/lib"
 "C:/Program Files/GLFW"
 "C:/Program Files (x86)/GLFW"
-"$ENV{HOME}/.brew/lib/"
-"$ENV{HOME}/homebrew/lib/"
+"$ENV{HOME}/goinfre/.brew/lib/"
+"$ENV{HOME}/goinfre/homebrew/lib/"
 )
 
 # Search for the header

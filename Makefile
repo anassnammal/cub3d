@@ -20,7 +20,7 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJDIR) $(OBJECTS)
+$(NAME): libft libmlx $(OBJDIR) $(OBJECTS)
 	$(CCOMPILER) $(CFLAGS) $(OBJECTS) $(CLIBRARY) -o $@
 
 libft:
@@ -29,6 +29,7 @@ libft:
 	make gnl -C $(LIBFT)
 
 libmlx:
+	brew list glfw 2>&1 > /dev/null || brew install glfw
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)

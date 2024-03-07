@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/06 16:05:35 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/07 04:00:02 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,12 @@
 # define MAP		0x40
 # define ERROR		0x80
 
-typedef unsigned int    t_rgb;
-typedef unsigned char	uint8_t;
-
 typedef struct s_txt
 {
-	mlx_image_t	*no;
-	mlx_image_t	*so;
-	mlx_image_t	*we;
-	mlx_image_t	*ea;
+	xpm_t	*no;
+	xpm_t	*so;
+	xpm_t	*we;
+	xpm_t	*ea;
 }	t_txt;
 
 typedef struct s_map
@@ -54,16 +51,25 @@ typedef struct s_scene
 {
     mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*player;
 	t_map		map;
 	t_txt		txt;
-	t_rgb		floor;
-	t_rgb		ceiling;
+	uint32_t		floor;
+	uint32_t		ceiling;
 }	t_scene;
 
 void	*cub_get(void);
+void	cub_init(void);
 void	cub_exit(uint8_t scene);
+void	cub_error(char *err_msg);
 uint8_t	load_scene(int file);
 uint8_t	load_setting(char *s, uint8_t *scene);
 uint8_t	load_map(t_list *list);
+
+
+// 2d view
+void draw_map(t_scene *d, uint32_t i, uint32_t j);
+void	draw_player(mlx_image_t *player, uint32_t i, uint32_t j);
+void	move_player(void* param);
 
 #endif

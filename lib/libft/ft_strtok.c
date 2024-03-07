@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 21:47:27 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/05 21:47:28 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/06 23:57:50 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ char	*ft_strtok(char *s)
 	token = buff;
 	while (*buff && !ft_isspace(*buff))
 		buff++;
-	*buff = 0;
+	*buff++ = 0;
 	return (token);
 }
