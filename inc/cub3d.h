@@ -29,6 +29,12 @@
 # define MAP		0x40
 # define ERROR		0x80
 
+typedef struct s_vector
+{
+	int x;
+	int y;
+}	t_vector;
+
 typedef struct s_txt
 {
 	xpm_t	*no;
@@ -67,9 +73,6 @@ uint8_t	load_setting(char *s, uint8_t *scene);
 uint8_t	load_map(t_list *list);
 
 
-// 2d view
-void draw_map(t_scene *d, uint32_t i, uint32_t j);
-void	draw_player(mlx_image_t *player, uint32_t i, uint32_t j);
 void	move_player(void* param);
 
 #endif

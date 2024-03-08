@@ -15,7 +15,7 @@ INCFLAG		:= -I$(INCDIR) -I$(LIBFT) -I$(LIBMLX)/include
 ifeq ($(shell uname), Darwin)
 	CLIBRARY:=-L$(LIBFT) -L$(LIBMLX)/build -lft -lmlx42 -lglfw
 else
-	CLIBRARY:=-L$(LIBDIR) -lft -lmlx42 -ldl -lglfw -pthread -lm
+	CLIBRARY:=-L$(LIBFT) -L$(LIBMLX)/build -lft -lmlx42 -ldl -lglfw -pthread -lm
 endif
 
 all: $(NAME)
@@ -29,7 +29,6 @@ libft:
 	make gnl -C $(LIBFT)
 
 libmlx:
-	brew list glfw 2>&1 > /dev/null || brew install glfw
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)

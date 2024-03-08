@@ -28,9 +28,9 @@ static uint8_t	add_node(t_list **list, char *line)
 		return (MAP);
 	empty = isempty(line);
 	if (!*list && empty)
-		return (EMPTY);
+		return (free(line), EMPTY);
 	else if (empty)
-		return (MAP);
+		return (free(line), MAP);
 	new = ft_lstnew(line);
 	if (!new)
 		return (free(line), ERROR);
