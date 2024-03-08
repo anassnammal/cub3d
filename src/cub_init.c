@@ -1,16 +1,63 @@
 #include "cub3d.h"
 
+void	*cub_get(void)
+{
+	static t_scene	data;
+
+	return (&data);
+}
+
+void draw_line(mlx_image_t *img, t_vector a, t_vector b, uint32_t color)
+{
+	t_vector	delta;
+	t_vector	sign;
+	t_vector	error;
+	t_vector	current;
+
+	delta = cub_vec(abs(b.x - a.x), abs(b.y - a.y));
+	sign = cub_vec(a.x < b.x ? 1 : -1, a.y < b.y ? 1 : -1);
+	error = cub_vec(delta.x - delta.y, delta.x - delta.y);
+	current = a;
+	while (current.x != b.x || current.y != b.y)
+	{
+		mlx_put_pixel(img, current.x, current.y, color);
+		if ((error.x * 2) > -delta.y)
+		{
+			error.x -= delta.y;
+			current.x += sign.x;
+		}
+		if ((error.y * 2) < delta.x)
+		{
+			error.y += delta.x;
+			current.y += sign.y;
+		}
+	}
+}
+
 void	draw_player(mlx_image_t *player)
 {
-	int x;
-	int y;
+	uint32_t	x;
+	uint32_t	y;
+	uint32_t	e;
+	uint32_t	s;
 
-	x = -1;
-	while (++x < 8)
+	x = 0;
+	e = 1;
+	while (++x < 7)
 	{
-		y = -1;
-		while (++y < 8)
-			mlx_put_pixel(player, x, y, 0x00FF00FF);
+		s = 0;
+		if (x < 4)
+			(e *= 2, y = 5 - x);
+		else if (x > 4)
+			(e /= 2, y = x - 2);
+		else
+			(e = 8, y = 2);
+		while (s < e)
+		{
+			mlx_put_pixel(player, x, y, 0x40FF00FF);
+			y++;
+			s++;
+		}
 	}
 }
 
@@ -22,23 +69,20 @@ void	draw_map(t_scene *d, uint32_t i, uint32_t j)
 
 	if (i == d->map.x_max)
 		return ;
-	c = 0x031634FF;
+	c = 0;
 	if (d->map.content[j][i] == '1')
 		c = 0x113649FF;
-	else if (d->map.content[j][i] != 0)
+	else if (d->map.content[j][i] == '0')
 		c = 0xCDB380FF;
 	x = 0;
-	while (x < MAP - 1)
+	while (c && ++x < MAP_UNIT - 1)
 	{
 		y = 0;
 		// printf("map[%d][%d]\n", i, j);
-		while (y < MAP - 1)
+		while (++y < MAP_UNIT - 1)
 		{
-			// printf("x[%d] y[%d]\n", i * 64 + x, j * 64 + y);
-			mlx_put_pixel(d->img, i * 64 + x, j * 64 + y, c);
-			y++;
+			mlx_put_pixel(d->img, i * MAP_UNIT + x, j * MAP_UNIT + y, c);
 		}
-		x++;
 	}
 	if (j < d->map.y_max - 1)
 		j++;
@@ -47,28 +91,51 @@ void	draw_map(t_scene *d, uint32_t i, uint32_t j)
 	draw_map(d, i, j);
 }
 
-void	*cub_get(void)
+void	set_player_components(t_map *map)
 {
-	static t_scene	data;
-
-	return (&data);
+	char	dir;
+	
+	dir = map->content[map->player.pos.y][map->player.pos.x];
+	if (dir == 'N')
+	{
+		map->player.dir = cub_vec(0, -1);
+		map->player.plane = cub_vec(0.66, 0);
+	}
+	else if (dir == 'S')
+	{
+		map->player.dir = cub_vec(0, 1);
+		map->player.plane = cub_vec(-0.66, 0);
+	}
+	else if (dir == 'W')
+	{
+		map->player.dir = cub_vec(-1, 0);
+		map->player.plane = cub_vec(0, -0.66);
+	}
+	else if (dir == 'E')
+	{
+		map->player.dir = cub_vec(1, 0);
+		map->player.plane = cub_vec(0, 0.66);
+	}
 }
 
 void	cub_init(void)
 {
-	t_scene *data;
+	t_scene		*data;
+	t_vector	pp;
 
 	data = cub_get();
-	data->mlx = mlx_init(data->map.x_max * MAP, data->map.y_max * MAP, "cub3d", false);
-	data->img = mlx_new_image(data->mlx, data->map.x_max * MAP, data->map.y_max * MAP);
-	data->player = mlx_new_image(data->mlx, 8, 8);
-	draw_player(data->player);
+	pp = data->map.player.pos;
+	data->mlx = mlx_init(data->map.x_max * MAP_UNIT, data->map.y_max * MAP_UNIT, "cub3d", false);
+	data->img = mlx_new_image(data->mlx, data->map.x_max * MAP_UNIT, data->map.y_max * MAP_UNIT);
+	data->img_p = mlx_new_image(data->mlx, 8, 8);
+	set_player_components(&data->map);
+	draw_player(data->img_p);
 	if (!data->img)
 		cub_error(NULL);
 	draw_map(data, 0, 0);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) < 0)
 		cub_error(NULL);
-	if (mlx_image_to_window(data->mlx, data->player, data->map.x_player * MAP + (MAP / 2), data->map.y_player * MAP + (MAP / 2)) < 0)
+	if (mlx_image_to_window(data->mlx, data->img_p, pp.x * MAP_UNIT + (MAP_UNIT / 2) - 4, pp.y * MAP_UNIT + (MAP_UNIT / 2) - 4) < 0)
 		cub_error(NULL);
 	mlx_loop_hook(data->mlx, move_player, data);
 	mlx_loop(data->mlx);

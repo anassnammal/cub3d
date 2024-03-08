@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <inttypes.h>
+# include <math.h>
 # include <MLX42/MLX42.h>
 
 # define EMPTY		0x0
@@ -28,6 +29,9 @@
 # define CEILING	0x20
 # define MAP		0x40
 # define ERROR		0x80
+
+# define MAP_UNIT	64
+# define PI			3.14159265359
 
 typedef struct s_vector
 {
@@ -43,25 +47,30 @@ typedef struct s_txt
 	xpm_t	*ea;
 }	t_txt;
 
+typedef struct s_player
+{
+	t_vector	pos;
+	t_vector	dir;
+	t_vector	plane;
+}	t_player;
+
 typedef struct s_map
 {
-    char	**content;
-	size_t	x_max;
-	size_t	y_max;
-	size_t	x_player;
-	size_t	y_player;
+    char		**content;
+	size_t		x_max;
+	size_t		y_max;
+	t_player	player;	
 }	t_map;
-
 
 typedef struct s_scene
 {
     mlx_t		*mlx;
 	mlx_image_t	*img;
-	mlx_image_t	*player;
+	mlx_image_t	*img_p;
 	t_map		map;
 	t_txt		txt;
-	uint32_t		floor;
-	uint32_t		ceiling;
+	uint32_t	floor;
+	uint32_t	ceiling;
 }	t_scene;
 
 void	*cub_get(void);
@@ -74,5 +83,18 @@ uint8_t	load_map(t_list *list);
 
 
 void	move_player(void* param);
+
+
+// Vector functions
+t_vector    cub_vec(int x, int y);
+t_vector    cub_vec_add(t_vector a, t_vector b);
+t_vector    cub_vec_sub(t_vector a, t_vector b);
+t_vector    cub_vec_mul(t_vector a, int b);
+t_vector    cub_vec_div(t_vector a, int b);
+uint32_t    cub_vec_dot(t_vector a, t_vector b);
+uint32_t    cub_vec_cross(t_vector a, t_vector b);
+uint32_t    cub_vec_len(t_vector a);
+t_vector    cub_vec_norm(t_vector a);
+t_vector    cub_vec_rot(t_vector a, int angle);
 
 #endif

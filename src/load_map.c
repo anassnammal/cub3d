@@ -49,10 +49,9 @@ static uint8_t	check_line(t_map *map, size_t x, size_t y)
 {
 	if (ft_memchr("NSWE", map->content[y][x], 4))
 	{
-		if (map->y_player || map->x_player)
+		if (map->player.pos.x)
 			return (ERROR);
-		map->x_player = x;
-		map->y_player = y;
+		map->player.pos = cub_vec(x, y);
 	}
 	else if (!ft_memchr("10", map->content[y][x], 3))
 		return (ERROR);
@@ -85,7 +84,7 @@ static uint8_t	validate_map(t_map *map)
 		}
 		y++;
 	}
-	if (!map->x_player)
+	if (!map->player.pos.x)
 		return (MAP | ERROR);
 	return (MAP);
 }
