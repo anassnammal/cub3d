@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/07 04:00:02 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/09 00:21:40 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@
 # define MAP		0x40
 # define ERROR		0x80
 
+# define SCREEN_X 1280
+# define SCREEN_Y 720
+
 # define MAP_UNIT	64
 # define PI			3.14159265359
 
 typedef struct s_vector
 {
-	int x;
-	int y;
+	uint32_t x;
+	uint16_t y;
 }	t_vector;
 
 typedef struct s_txt
