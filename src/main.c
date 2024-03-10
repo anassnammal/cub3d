@@ -30,6 +30,8 @@ int main(int ac, char const **av)
 {
 	int		file;
 	t_scene	*data;
+	uint8_t	*c;
+	uint8_t	*f;
 	
 	data = cub_get();
 	if (ac != 2)
@@ -40,6 +42,12 @@ int main(int ac, char const **av)
 	printf("status %d\n", data->scene);
 	if (data->scene & ERROR)
 		cub_error("ERROR: invalid file content");
+	c = (uint8_t *)&data->ceiling;
+	f = (uint8_t *)&data->floor;
+	printf("ceiling hex: %x\n", data->ceiling);
+	printf("floor hex: %x\n", data->floor);
+	printf("ceiling: R:%d G:%d B:%d\n", c[3], c[2], c[1]);
+	printf("floor: R:%d G:%d B:%d\n", f[3], f[2], f[1]);
 	cub_launch();
     cub_exit();
 	return 0;

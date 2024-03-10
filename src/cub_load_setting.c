@@ -43,7 +43,7 @@ static unsigned int	load_rgb(char *s, uint8_t *t)
 	}
 	if (*s || c != 0)
 		*t = ERROR;
-	return (n);
+	return (n | 0x000000FF);
 }
 
 static uint8_t		identify_line(char *s)
