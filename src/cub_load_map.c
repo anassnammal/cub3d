@@ -51,7 +51,7 @@ static uint8_t	check_line(t_map *map, size_t x, size_t y)
 	{
 		if (map->player.pos.x)
 			return (ERROR);
-		map->player.pos = cub_vec(x, y);
+		map->player.pos = cub_vec(x + 0.5, y + 0.5);
 	}
 	else if (!ft_memchr("10", map->content[y][x], 3))
 		return (ERROR);

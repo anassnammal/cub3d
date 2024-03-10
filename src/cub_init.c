@@ -38,10 +38,8 @@ void	set_player_components(t_map *map)
 void	cub_launch(void)
 {
 	t_scene		*data;
-	t_vector	pp;
 
 	data = cub_get();
-	pp = data->map.player.pos;
 	data->mlx = mlx_init(SCREEN_X, SCREEN_Y, "cub3d", false);
 	if (!data->mlx)
 		cub_error(NULL);
