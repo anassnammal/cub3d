@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/09 00:21:40 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/10 03:59:39 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@
 # define MAP		0x40
 # define ERROR		0x80
 
-# define SCREEN_X 1280
-# define SCREEN_Y 720
+# define SCREEN_X 640
+# define SCREEN_Y 480
 
 # define MAP_UNIT	64
-# define PI			3.14159265359
+
+typedef struct s_point
+{
+	uint32_t x;
+	uint32_t y;
+}	t_point;
 
 typedef struct s_vector
 {
-	uint32_t x;
-	uint16_t y;
+	double x;
+	double y;
 }	t_vector;
 
 typedef struct s_txt
@@ -67,9 +72,10 @@ typedef struct s_map
 
 typedef struct s_scene
 {
+	uint8_t		scene;
     mlx_t		*mlx;
-	mlx_image_t	*img;
-	mlx_image_t	*img_p;
+	mlx_image_t	*frame;
+	mlx_image_t	*frame2;
 	t_map		map;
 	t_txt		txt;
 	uint32_t	floor;
@@ -77,27 +83,27 @@ typedef struct s_scene
 }	t_scene;
 
 void	*cub_get(void);
-void	cub_init(void);
-void	cub_exit(uint8_t scene);
+void	cub_launch(void);
+void	cub_exit(void);
 void	cub_error(char *err_msg);
 uint8_t	load_scene(int file);
 uint8_t	load_setting(char *s, uint8_t *scene);
 uint8_t	load_map(t_list *list);
 
 
-void	move_player(void* param);
-
+void	move_handler(void* param);
+void	draw_frame(t_scene *data);
 
 // Vector functions
-t_vector    cub_vec(int x, int y);
+t_vector    cub_vec(double x, double y);
 t_vector    cub_vec_add(t_vector a, t_vector b);
 t_vector    cub_vec_sub(t_vector a, t_vector b);
-t_vector    cub_vec_mul(t_vector a, int b);
-t_vector    cub_vec_div(t_vector a, int b);
-uint32_t    cub_vec_dot(t_vector a, t_vector b);
-uint32_t    cub_vec_cross(t_vector a, t_vector b);
-uint32_t    cub_vec_len(t_vector a);
+t_vector    cub_vec_mul(t_vector a, double b);
+t_vector    cub_vec_div(t_vector a, double b);
+double	    cub_vec_dot(t_vector a, t_vector b);
+double	    cub_vec_cross(t_vector a, t_vector b);
+double	    cub_vec_len(t_vector a);
 t_vector    cub_vec_norm(t_vector a);
-t_vector    cub_vec_rot(t_vector a, int angle);
+t_vector    cub_vec_rot(t_vector a, double angle);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:24 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/06 16:31:31 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/10 03:56:08 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ uint8_t			load_scene(int file)
 		free(line);
 	if (line)
 		return (ft_lstclear(&list, free), free(line), scene | ERROR);
-	return ((scene |= load_map(list)));
+	scene |= load_map(list);
+	return (scene);
 }
 
