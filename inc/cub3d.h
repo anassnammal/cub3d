@@ -30,10 +30,8 @@
 # define MAP		0x40
 # define ERROR		0x80
 
-# define SCREEN_X 640
-# define SCREEN_Y 480
-
-# define MAP_UNIT	64
+# define SCREEN_X 1280
+# define SCREEN_Y 720
 
 typedef struct s_point
 {
