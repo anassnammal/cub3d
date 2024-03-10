@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_scene.c                                       :+:      :+:    :+:   */
+/*   cub_load_scene.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:24 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/10 03:56:08 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/10 14:52:37 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ uint8_t			load_scene(int file)
 	while (scene < MAP)
 		scene |= add_node(&list, get_next_line(file));
 	if (scene & ERROR || !list)
-		return (ft_lstclear(&list, free), scene);
+		return (ft_lstclear(&list, free), scene & ~MAP);
 	while ((line = get_next_line(file)) && isempty(line))
 		free(line);
 	if (line)
-		return (ft_lstclear(&list, free), free(line), scene | ERROR);
+		return (ft_lstclear(&list, free), free(line), (scene & ~MAP) | ERROR);
 	scene |= load_map(list);
+	if (scene & ERROR)
+		scene &= ~MAP;
 	return (scene);
 }
 
