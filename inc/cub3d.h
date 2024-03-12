@@ -33,6 +33,8 @@
 # define SCREEN_X 1280
 # define SCREEN_Y 720
 
+
+
 typedef struct s_point
 {
 	uint32_t x;
@@ -44,6 +46,17 @@ typedef struct s_vector
 	double x;
 	double y;
 }	t_vector;
+
+typedef	struct s_raycast
+{
+	t_vector	ray_dir;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	t_point		map;
+	t_point		step;
+	double		perp_wall_dist;
+	uint8_t		side;
+}	t_raycast;
 
 typedef struct s_txt
 {
@@ -88,6 +101,7 @@ uint8_t	load_scene(int file);
 uint8_t	load_setting(char *s, uint8_t *scene);
 uint8_t	load_map(t_list *list);
 
+void    calc_dist_to_wall(t_map *_map, t_raycast *vars);
 
 void	move_handler(void* param);
 void	draw_frame(t_scene *data);

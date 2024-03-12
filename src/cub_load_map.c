@@ -109,7 +109,7 @@ uint8_t			load_map(t_list *list)
 	}
 	data->map.y_max = y;
 	if (export_map(&data->map, list) & ERROR)
-		return (ft_lstclear(&list, free), ERROR);
+		return (ft_lstclear(&list, free), ft_strsfree(data->map.content),ERROR);
 	data->map.x_max--;
 	ft_lstclear(&list, free);
 	return (validate_map(&data->map));

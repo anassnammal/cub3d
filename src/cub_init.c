@@ -59,14 +59,14 @@ void	cub_exit(void)
 	t_scene	*data;
 
 	data = cub_get();	
-	// if (data->scene & NORTH)
-	// 	mlx_delete_xpm42(data->txt.no);
-	// if (data->scene & SOUTH)
-	// 	mlx_delete_xpm42(data->txt.so);
-	// if (data->scene & WEST)
-	// 	mlx_delete_xpm42(data->txt.we);
-	// if (data->scene & EAST)
-	// 	mlx_delete_xpm42(data->txt.ea);
+	if (data->scene & NORTH)
+		mlx_delete_texture(data->txt.no);
+	if (data->scene & SOUTH)
+		mlx_delete_texture(data->txt.so);
+	if (data->scene & WEST)
+		mlx_delete_texture(data->txt.we);
+	if (data->scene & EAST)
+		mlx_delete_texture(data->txt.ea);
 	if (data->scene & MAP)
 	{
 		ft_strsfree(data->map.content);
