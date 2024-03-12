@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_setting.c                                     :+:      :+:    :+:   */
+/*   cub_load_setting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:32 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/07 00:17:15 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/12 00:45:21 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static xpm_t		*load_textures(char *file, uint8_t *t)
+static mlx_texture_t	*load_textures(char *file, uint8_t *t)
 {
-	xpm_t		*xpm;
+	mlx_texture_t		*png;
 
-	xpm = mlx_load_xpm42(file);
-	(void)t;
-	// if (!xpm)
-	// 	(ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1), *t = ERROR);
-	return (xpm);
+	png = mlx_load_png(file);
+	if (!png)
+		(ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1), *t = ERROR);
+	return (png);
 }
 
 static unsigned int	load_rgb(char *s, uint8_t *t)

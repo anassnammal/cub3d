@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/10 03:59:39 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/12 00:45:33 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct s_vector
 
 typedef struct s_txt
 {
-	xpm_t	*no;
-	xpm_t	*so;
-	xpm_t	*we;
-	xpm_t	*ea;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
 }	t_txt;
 
 typedef struct s_player
