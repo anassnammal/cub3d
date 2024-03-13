@@ -65,7 +65,18 @@ void		rotate_player(t_map *map, double rot_speed)
 	map->player.plane = cub_vec_rot(map->player.plane, rot_speed);
 }
 
-void		move_handler(void* param)
+void		move_player(t_map *map, t_vector npos)
+{
+	t_vector	pp;
+
+	pp = map->player.pos;
+	if (map->content[(uint32_t)(pp.y)][(uint32_t)(npos.x)] != '1')
+		map->player.pos.x = npos.x;
+	if (map->content[(uint32_t)(npos.y)][(uint32_t)(pp.x)] != '1')
+		map->player.pos.y = npos.y;
+}
+
+void		move_handler(void *param)
 {
 	t_scene		*d;
 	t_vector	pp;
@@ -77,33 +88,13 @@ void		move_handler(void* param)
 	if (mlx_is_key_down(d->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(d->mlx);
 	if (mlx_is_key_down(d->mlx, MLX_KEY_W))
-	{
-		if (d->map.content[(uint32_t)(pp.y)][(uint32_t)(pp.x + np.x)] != '1')
-			d->map.player.pos.x += np.x;
-		if (d->map.content[(uint32_t)(pp.y + np.y)][(uint32_t)(pp.x)] != '1')
-			d->map.player.pos.y += np.y;
-	}
+		move_player(&d->map, cub_vec(pp.x + np.x, pp.y + np.y));
 	if (mlx_is_key_down(d->mlx, MLX_KEY_S))
-	{
-		if (d->map.content[(uint32_t)(pp.y)][(uint32_t)(pp.x - np.x)] != '1')
-			d->map.player.pos.x -= np.x;
-		if (d->map.content[(uint32_t)(pp.y - np.y)][(uint32_t)(pp.x)] != '1')
-			d->map.player.pos.y -= np.y;
-	}
+		move_player(&d->map, cub_vec(pp.x - np.x, pp.y - np.y));
 	if (mlx_is_key_down(d->mlx, MLX_KEY_D))
-	{
-		if (d->map.content[(uint32_t)(pp.y)][(uint32_t)(pp.x - np.y)] != '1')
-			d->map.player.pos.x -= np.y;
-		if (d->map.content[(uint32_t)(pp.y + np.x)][(uint32_t)(pp.x)] != '1')
-			d->map.player.pos.y += np.x;
-	}
+		move_player(&d->map, cub_vec(pp.x - np.y, pp.y + np.x));
 	if (mlx_is_key_down(d->mlx, MLX_KEY_A))
-	{
-		if (d->map.content[(uint32_t)(pp.y)][(uint32_t)(pp.x + np.y)] != '1')
-			d->map.player.pos.x += np.y;
-		if (d->map.content[(uint32_t)(pp.y - np.x)][(uint32_t)(pp.x)] != '1')
-			d->map.player.pos.y -= np.x;
-	}
+		move_player(&d->map, cub_vec(pp.x + np.y, pp.y - np.x));
 	if (mlx_is_key_down(d->mlx, MLX_KEY_RIGHT))
 		rotate_player(&d->map, d->mlx->delta_time * 3.0);
 	if (mlx_is_key_down(d->mlx, MLX_KEY_LEFT))

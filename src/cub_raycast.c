@@ -54,7 +54,7 @@ static void	raycast_start_dda(t_raycast *vars, char **_map)
 		{
 			vars->side_dist.y += vars->delta_dist.y;
 			vars->map.y += vars->step.y;
-			vars->side = SIDE_X;
+			vars->side = SIDE_Y;
 		}
 	}
 }
