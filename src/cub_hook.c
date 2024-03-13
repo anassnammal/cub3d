@@ -46,14 +46,14 @@ void		draw_line(t_scene *data, int32_t x, t_raycast *vars)
 void		draw_frame(t_scene *data)
 {
 	t_raycast	vars;
-	double		camera;
+	double		plane_scaler;
 	uint32_t	x;
 
 	x = 0;
 	while (x < SCREEN_X)
 	{
-		camera = 2 * x / (double)SCREEN_X - 1;
-		vars.ray_dir = cub_vec_mul(data->map.player.plane, camera);
+		plane_scaler = 2 * x / (double)SCREEN_X - 1;
+		vars.ray_dir = cub_vec_mul(data->map.player.plane, plane_scaler);
 		vars.ray_dir = cub_vec_add(data->map.player.dir, vars.ray_dir);
 		calc_perp_dist_wall(&data->map, &vars);
 		draw_line(data, x, &vars);

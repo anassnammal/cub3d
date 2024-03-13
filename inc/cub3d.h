@@ -105,8 +105,7 @@ uint8_t	load_scene(int file);
 uint8_t	load_setting(char *s, uint8_t *scene);
 uint8_t	load_map(t_list *list);
 
-void    calc_perp_dist_wall(t_map *_map, t_raycast *vars);
-
+void	calc_perp_dist(t_raycast *vars, t_map *map);
 void	move_handler(void* param);
 void	draw_frame(t_scene *data);
 
