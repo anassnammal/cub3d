@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:17 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 13:51:04 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:24:50 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	main(int ac, char const **av)
 {
 	int		file;
 	t_scene	*data;
-	uint8_t	*c;
-	uint8_t	*f;
 
 	data = cub_get();
 	if (ac != 2)

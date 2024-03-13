@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 13:51:37 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:24:03 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define UNIT		64
 
-# define SIDE_X		0
+# define SIDE_X		2
 # define SIDE_Y		1
 
 typedef struct s_point

@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:30:47 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 02:13:33 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:27:36 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void		draw_line(t_scene *data, int32_t x, t_raycast *vars)
 	int32_t		wall_height;
 	int32_t		wall_start;
 	int32_t		wall_end;
-	uint32_t	index;
-	t_vector	offset;
 	int32_t		y;
 
 	wall_height = (int32_t)(SCREEN_X / vars->perp_wall_dist);
@@ -35,7 +33,7 @@ void		draw_line(t_scene *data, int32_t x, t_raycast *vars)
 			mlx_put_pixel(data->frame, x, y, data->ceiling);
 		else if (y < wall_end)
 		{
-			;// mlx_put_pixel(data->frame, x, y, *(uint32_t*)(data->txt.no->pixels + index));
+			mlx_put_pixel(data->frame, x, y, 0x00FF0000 | (0xFF / vars->side));
 		}
 		else
 			mlx_put_pixel(data->frame, x, y, data->floor);
@@ -55,7 +53,7 @@ void		draw_frame(t_scene *data)
 		plane_scaler = 2 * x / (double)SCREEN_X - 1;
 		vars.ray_dir = cub_vec_mul(data->map.player.plane, plane_scaler);
 		vars.ray_dir = cub_vec_add(data->map.player.dir, vars.ray_dir);
-		calc_perp_dist_wall(&data->map, &vars);
+		calc_perp_dist(&vars, &data->map);
 		draw_line(data, x, &vars);
 		x++;
 	}
