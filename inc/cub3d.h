@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/12 00:45:33 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 02:14:56 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@
 # define MAP		0x40
 # define ERROR		0x80
 
-# define SCREEN_X 1280
-# define SCREEN_Y 720
+# define SCREEN_X	1280
+# define SCREEN_Y	720
 
+# define UNIT		64
 
+# define SIDE_X		0
+# define SIDE_Y		1
 
 typedef struct s_point
 {
@@ -54,6 +57,7 @@ typedef	struct s_raycast
 	t_vector	delta_dist;
 	t_point		map;
 	t_point		step;
+	double		wall_hit;
 	double		perp_wall_dist;
 	uint8_t		side;
 }	t_raycast;
@@ -101,7 +105,7 @@ uint8_t	load_scene(int file);
 uint8_t	load_setting(char *s, uint8_t *scene);
 uint8_t	load_map(t_list *list);
 
-void    calc_dist_to_wall(t_map *_map, t_raycast *vars);
+void    calc_perp_dist_wall(t_map *_map, t_raycast *vars);
 
 void	move_handler(void* param);
 void	draw_frame(t_scene *data);

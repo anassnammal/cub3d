@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub_hook.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/12 23:30:47 by anammal           #+#    #+#             */
+/*   Updated: 2024/03/13 02:13:33 by anammal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void		draw_line(t_scene *data, int32_t x, t_raycast *vars)
@@ -5,7 +17,8 @@ void		draw_line(t_scene *data, int32_t x, t_raycast *vars)
 	int32_t		wall_height;
 	int32_t		wall_start;
 	int32_t		wall_end;
-	uint32_t	color;
+	uint32_t	index;
+	t_vector	offset;
 	int32_t		y;
 
 	wall_height = (int32_t)(SCREEN_X / vars->perp_wall_dist);
@@ -15,14 +28,15 @@ void		draw_line(t_scene *data, int32_t x, t_raycast *vars)
 		wall_start = 0;
 	if (wall_end >= SCREEN_Y)
 		wall_end = SCREEN_Y - 1;
-	color = 0x00FF0000 | (0xFF / vars->side);
 	y = 0;
 	while (y < SCREEN_Y)
 	{
 		if (y < wall_start)
 			mlx_put_pixel(data->frame, x, y, data->ceiling);
 		else if (y < wall_end)
-			mlx_put_pixel(data->frame, x, y, color);
+		{
+			;// mlx_put_pixel(data->frame, x, y, *(uint32_t*)(data->txt.no->pixels + index));
+		}
 		else
 			mlx_put_pixel(data->frame, x, y, data->floor);
 		y++;
@@ -41,7 +55,7 @@ void		draw_frame(t_scene *data)
 		camera = 2 * x / (double)SCREEN_X - 1;
 		vars.ray_dir = cub_vec_mul(data->map.player.plane, camera);
 		vars.ray_dir = cub_vec_add(data->map.player.dir, vars.ray_dir);
-		calc_dist_to_wall(&data->map, &vars);
+		calc_perp_dist_wall(&data->map, &vars);
 		draw_line(data, x, &vars);
 		x++;
 	}
