@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 02:14:56 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:51:37 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,7 @@ void	draw_frame(t_scene *data);
 // Vector functions
 t_vector    cub_vec(double x, double y);
 t_vector    cub_vec_add(t_vector a, t_vector b);
-t_vector    cub_vec_sub(t_vector a, t_vector b);
 t_vector    cub_vec_mul(t_vector a, double b);
-t_vector    cub_vec_div(t_vector a, double b);
-double	    cub_vec_dot(t_vector a, t_vector b);
-double	    cub_vec_cross(t_vector a, t_vector b);
-double	    cub_vec_len(t_vector a);
-t_vector    cub_vec_norm(t_vector a);
 t_vector    cub_vec_rot(t_vector a, double angle);
 
 #endif

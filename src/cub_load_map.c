@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_map.c                                         :+:      :+:    :+:   */
+/*   cub_load_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:35 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/06 16:09:06 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:39:49 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		copy_map_line(char *dest, char *src)
+static void	copy_map_line(char *dest, char *src)
 {
 	while (*src)
 	{
@@ -89,7 +89,7 @@ static uint8_t	validate_map(t_map *map)
 	return (MAP);
 }
 
-uint8_t			load_map(t_list *list)
+uint8_t	load_map(t_list *list)
 {
 	t_scene	*data;
 	t_list	*tmp;
@@ -109,7 +109,7 @@ uint8_t			load_map(t_list *list)
 	}
 	data->map.y_max = y;
 	if (export_map(&data->map, list) & ERROR)
-		return (ft_lstclear(&list, free), ft_strsfree(data->map.content),ERROR);
+		return (ft_lstclear(&list, free), ERROR);
 	data->map.x_max--;
 	ft_lstclear(&list, free);
 	return (validate_map(&data->map));

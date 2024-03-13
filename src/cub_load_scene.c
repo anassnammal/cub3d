@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:24 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/10 14:52:37 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:41:09 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static uint8_t	add_node(t_list **list, char *line)
 	return (EMPTY);
 }
 
-uint8_t			load_scene(int file)
+uint8_t	load_scene(int file)
 {
 	char	*line;
 	t_list	*list;
@@ -63,4 +63,3 @@ uint8_t			load_scene(int file)
 		scene &= ~MAP;
 	return (scene);
 }
-

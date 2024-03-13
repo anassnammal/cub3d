@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anammal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:30:56 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/12 23:30:58 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:38:11 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,30 @@ void	*cub_get(void)
 	return (&data);
 }
 
-void	set_player_components(t_map *map)
+void	set_player_components(t_map *m)
 {
 	char	*dir;
-	
-	dir = &map->content[(uint32_t)map->player.pos.y][(uint32_t)map->player.pos.x];
+
+	dir = &m->content[(uint32_t)m->player.pos.y][(uint32_t)m->player.pos.x];
 	if (*dir == 'N')
 	{
-		map->player.dir = cub_vec(0, -1);
-		map->player.plane = cub_vec(0.66, 0);
+		m->player.dir = cub_vec(0, -1);
+		m->player.plane = cub_vec(0.66, 0);
 	}
 	else if (*dir == 'S')
 	{
-		map->player.dir = cub_vec(0, 1);
-		map->player.plane = cub_vec(-0.66, 0);
+		m->player.dir = cub_vec(0, 1);
+		m->player.plane = cub_vec(-0.66, 0);
 	}
 	else if (*dir == 'W')
 	{
-		map->player.dir = cub_vec(-1, 0);
-		map->player.plane = cub_vec(0, -0.66);
+		m->player.dir = cub_vec(-1, 0);
+		m->player.plane = cub_vec(0, -0.66);
 	}
 	else if (*dir == 'E')
 	{
-		map->player.dir = cub_vec(1, 0);
-		map->player.plane = cub_vec(0, 0.66);
+		m->player.dir = cub_vec(1, 0);
+		m->player.plane = cub_vec(0, 0.66);
 	}
 	*dir = '0';
 }
@@ -70,7 +70,7 @@ void	cub_exit(void)
 {
 	t_scene	*data;
 
-	data = cub_get();	
+	data = cub_get();
 	if (data->scene & NORTH)
 		mlx_delete_texture(data->txt.no);
 	if (data->scene & SOUTH)

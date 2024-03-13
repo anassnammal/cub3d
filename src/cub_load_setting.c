@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:32 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/12 00:45:21 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:41:43 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static unsigned int	load_rgb(char *s, uint8_t *t)
 	return (n | 0x000000FF);
 }
 
-static uint8_t		identify_line(char *s)
+static uint8_t	identify_line(char *s)
 {
 	if (!s)
 		return (EMPTY);
@@ -64,7 +64,7 @@ static uint8_t		identify_line(char *s)
 	return (ERROR);
 }
 
-static void			set_setting(char *s, uint8_t *type)
+static void	set_setting(char *s, uint8_t *type)
 {
 	t_scene	*data;
 
@@ -83,7 +83,7 @@ static void			set_setting(char *s, uint8_t *type)
 		data->ceiling = load_rgb(s, type);
 }
 
-uint8_t				load_setting(char *s, uint8_t *scene)
+uint8_t	load_setting(char *s, uint8_t *scene)
 {
 	uint8_t	type;
 	char	*token;

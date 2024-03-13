@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:31:23 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 02:51:22 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:34:04 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static void	raycast_init_dda(t_raycast *vars, t_vector pos)
 		vars->delta_dist.x = fabs(1 / vars->ray_dir.x);
 	if (vars->ray_dir.y)
 		vars->delta_dist.y = fabs(1 / vars->ray_dir.y);
-	vars->map.x = (uint32_t)pos.x;
-	vars->map.y = (uint32_t)pos.y;
 	if (vars->ray_dir.x < 0)
 	{
 		vars->step.x = -1;
@@ -66,6 +64,8 @@ void	calc_perp_dist(t_raycast *vars, t_map *map)
 	t_vector	pos;
 
 	pos = map->player.pos;
+	vars->map.x = (uint32_t)pos.x;
+	vars->map.y = (uint32_t)pos.y;
 	raycast_init_dda(vars, pos);
 	raycast_start_dda(vars, map->content);
 	if (vars->side == SIDE_X)
