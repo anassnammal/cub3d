@@ -1,49 +1,29 @@
 #include "cub3d.h"
-/*
-uint32_t	get_pixel_color(t_txt *txt, int32_t txt_x, int32_t txt_y)
+
+uint32_t		get_color(t_txt *texture, int32_t imgx, int32_t imgy) 
 {
-	uint8_t	*color;
-	uint32_t	*color_int;
+	int32_t index;
+	index = (texture->so->width * imgy + imgx) * 4;
+	//TODO: 
+		// protect overflow
 
-	color = txt->no->pixels + (txt_y * txt->wall_height + txt_x * txt->no->bytes_per_pixel);
-	color_int = (uint32_t *)color;
-	return (*color_int);
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
+	unsigned int a;
+	unsigned int color = 0;
+
+	r = texture->so->pixels[index];
+	g = texture->so->pixels[index + 1];
+	b = texture->so->pixels[index + 2];
+	a = texture->so->pixels[index + 3];
+	color |= r << 24;
+	color |= g << 16;
+	color |= b << 8;
+	color |= a;
+	return (color);
 }
-int32_t		draw_wall(t_txt *txt , mlx_image_t *f, t_raycast *v , int32_t x)
-{
-	int32_t	txt_x;
-	int32_t	txt_y;
-	double	step;
-	double	txt_p;
-	int32_t	y;
 
-	txt_x = (int32_t)(v->wall_hit * txt->no->width);
-	if (v->side == 0 && v->ray_dir.x > 0)
-		txt_x = txt->no->width - txt_x - 1;
-	if (v->side == 1 && v->ray_dir.y < 0)
-		txt_x = txt->no->width - txt_x - 1;
-	step = 1.0 * txt->no->height / txt->wall_height;
-	txt_p = (txt->wall_start - SCREEN_Y / 2 + txt->wall_height / 2) * step;
-	y = txt->wall_start;
-	while (y < txt->wall_end)
-	{
-		txt_y = (int32_t)txt_p & (txt->no->height - 1);
-		txt_p += step;
-		mlx_put_pixel(f, x, y, get_pixel_color(txt, txt_x, txt_y));
-		y++;
-	}
-	return (y);
-}
-	if (ray->horizantal_intersection)
-		text_offset_x = fmod(ray->wall_hitx, TILE) * (double)text->width / TILE;
-	else
-		text_offset_x = fmod(ray->wall_hity, TILE) * (double)text->width / TILE;
-	text_offset_y = (y - wall_start) * (double)text->height / wh;
-    ***double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
-	index = text_offset_y * text->width * text->bytes_per_pixel
-		+ text_offset_x * text->bytes_per_pixel;
-
-*/
 void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
 {
 	int32_t		y;
@@ -53,6 +33,7 @@ void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
     double      txt_p;
 
     txt_x = (int32_t)(vars->wall_hit * data->txt.so->width);
+	
     if (vars->side == 0 && vars->ray_dir.x > 0)
         txt_x = data->txt.so->width - txt_x - 1;
     if (vars->side == 1 && vars->ray_dir.y < 0)
@@ -68,8 +49,8 @@ void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
         {
             txt_y = (int32_t)txt_p & (data->txt.so->height - 1);
             txt_p += step;
-            mlx_put_pixel(data->frame, x, y, *(uint32_t *)(data->txt.so->pixels + (data->txt.so->height * txt_y + txt_x) * data->txt.so->bytes_per_pixel));
-        }
+			mlx_put_pixel(data->frame, x, y, get_color(&data->txt, txt_x, txt_y));
+		}
 		else
 			mlx_put_pixel(data->frame, x, y, data->floor);
 		y++;

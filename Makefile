@@ -9,7 +9,7 @@ HEADERS		:= $(wildcard $(INCDIR)/*.h)
 SOURCES		:= $(wildcard $(SRCDIR)/*.c)
 OBJECTS		:= $(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
 CCOMPILER	:= cc
-CFLAGS		:= -g -Werror -Wall -Wextra  -fsanitize=address,undefined
+CFLAGS		:= -g -Werror -Wall -Wextra  -fsanitize=address,undefined -Ofast
 INCFLAG		:= -I$(INCDIR) -I$(LIBFT) -I$(LIBMLX)/include
 
 ifeq ($(shell uname), Darwin)
