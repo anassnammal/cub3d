@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 05:40:53 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 14:24:03 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/14 00:45:57 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define UNIT		64
 
-# define SIDE_X		2
+# define SIDE_X		0
 # define SIDE_Y		1
 
 typedef struct s_point
@@ -57,9 +57,9 @@ typedef	struct s_raycast
 	t_vector	delta_dist;
 	t_point		map;
 	t_point		step;
+	uint8_t		side;
 	double		wall_hit;
 	double		perp_wall_dist;
-	uint8_t		side;
 }	t_raycast;
 
 typedef struct s_txt

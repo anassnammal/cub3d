@@ -6,7 +6,7 @@
 /*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:31:23 by anammal           #+#    #+#             */
-/*   Updated: 2024/03/13 13:34:04 by anammal          ###   ########.fr       */
+/*   Updated: 2024/03/13 23:27:28 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ void	calc_perp_dist(t_raycast *vars, t_map *map)
 		vars->perp_wall_dist = vars->side_dist.y - vars->delta_dist.y;
 		vars->wall_hit = pos.y + vars->perp_wall_dist * vars->ray_dir.y;
 	}
+	vars->wall_hit -= floor(vars->wall_hit);
 }
