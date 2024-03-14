@@ -71,12 +71,12 @@ void	calc_perp_dist(t_raycast *vars, t_map *map)
 	if (vars->side == SIDE_X)
 	{
 		vars->perp_wall_dist = vars->side_dist.x - vars->delta_dist.x;
-		vars->wall_hit = pos.x + vars->perp_wall_dist * vars->ray_dir.x;
+		vars->wall_hit = pos.y + vars->perp_wall_dist * vars->ray_dir.y;
 	}
 	else
 	{
 		vars->perp_wall_dist = vars->side_dist.y - vars->delta_dist.y;
-		vars->wall_hit = pos.y + vars->perp_wall_dist * vars->ray_dir.y;
+		vars->wall_hit = pos.x + vars->perp_wall_dist * vars->ray_dir.x;
 	}
 	vars->wall_hit -= floor(vars->wall_hit);
 }

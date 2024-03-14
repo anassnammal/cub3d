@@ -35,7 +35,7 @@
 
 # define UNIT		64
 
-# define SIDE_X		0
+# define SIDE_X		2
 # define SIDE_Y		1
 
 typedef struct s_point
@@ -68,6 +68,9 @@ typedef struct s_txt
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	int32_t			wall_height;
+	int32_t			wall_start;
+	int32_t			wall_end;
 }	t_txt;
 
 typedef struct s_player
