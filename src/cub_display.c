@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub_display.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sel-hano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/14 23:15:15 by sel-hano          #+#    #+#             */
+/*   Updated: 2024/03/14 23:15:17 by sel-hano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 uint32_t		get_color(t_txt *texture, int32_t imgx, int32_t imgy) 
@@ -34,9 +46,9 @@ void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
 
     txt_x = (int32_t)(vars->wall_hit * data->txt.so->width);
 	
-    if (vars->side == 0 && vars->ray_dir.x > 0)
+    if (vars->side == SIDE_X && vars->ray_dir.x > 0)
         txt_x = data->txt.so->width - txt_x - 1;
-    if (vars->side == 1 && vars->ray_dir.y < 0)
+    if (vars->side == SIDE_Y && vars->ray_dir.y < 0)
         txt_x = data->txt.so->width - txt_x - 1;
     step = 1.0 * data->txt.so->height / data->txt.wall_height;
     txt_p = (data->txt.wall_start - SCREEN_Y / 2 + data->txt.wall_height / 2) * step;

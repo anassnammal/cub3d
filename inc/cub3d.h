@@ -35,7 +35,7 @@
 
 # define UNIT		64
 
-# define SIDE_X		2
+# define SIDE_X		0
 # define SIDE_Y		1
 
 typedef struct s_point
