@@ -11,6 +11,8 @@ OBJECTS		:= $(addprefix $(OBJDIR)/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
 CCOMPILER	:= cc
 CFLAGS		:= -g -Werror -Wall -Wextra  -fsanitize=address,undefined -Ofast
 INCFLAG		:= -I$(INCDIR) -I$(LIBFT) -I$(LIBMLX)/include
+LIBFTARCH 	:= $(LIBFT)/libft.a
+MLXARCH 	:= $(LIBMLX)/build/libmlx42.a
 
 ifeq ($(shell uname), Darwin)
 	CLIBRARY:=-L$(LIBFT) -L$(LIBMLX)/build -lft -lmlx42 -lglfw
@@ -20,15 +22,15 @@ endif
 
 all: $(NAME)
 
-$(NAME): libft libmlx $(OBJDIR) $(OBJECTS)
+$(NAME): $(LIBFTARCH) $(MLXARCH) $(OBJDIR) $(OBJECTS)
 	$(CCOMPILER) $(CFLAGS) $(OBJECTS) $(CLIBRARY) -o $@
 
-libft:
+$(LIBFTARCH):
 	make -C $(LIBFT)
 	make bonus -C $(LIBFT)
 	make gnl -C $(LIBFT)
 
-libmlx:
+$(MLXARCH):
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)

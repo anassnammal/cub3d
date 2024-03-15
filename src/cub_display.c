@@ -70,7 +70,7 @@ void	draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
 	{
 		if (y < data->txt.ws)
 			mlx_put_pixel(data->frame, x, y, data->ceiling);
-		else if (y < data->txt.we)
+		else if (y < data->txt.wen)
 		{
 			txt_y = (int32_t)step[1] & (txt->height - 1);
 			step[1] += step[0];
@@ -97,11 +97,11 @@ void	draw_frame(t_scene *data)
 		calc_perp_dist(&vars, &data->map);
 		data->txt.wh = (int32_t)(SCREEN_X / vars.perp_wall_dist);
 		data->txt.ws = -data->txt.wh / 2 + SCREEN_Y / 2;
-		data->txt.we = data->txt.wh / 2 + SCREEN_Y / 2;
+		data->txt.wen = data->txt.wh / 2 + SCREEN_Y / 2;
 		if (data->txt.ws < 0)
 			data->txt.ws = 0;
-		if (data->txt.we >= SCREEN_Y)
-			data->txt.we = SCREEN_Y - 1;
+		if (data->txt.wen >= SCREEN_Y)
+			data->txt.wen = SCREEN_Y - 1;
 		draw_vert_line(data, x, &vars);
 		x++;
 	}

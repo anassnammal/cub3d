@@ -56,7 +56,7 @@ uint8_t	load_scene(int file)
 		return (ft_lstclear(&list, free), scene & ~MAP);
 	line = get_next_line(file);
 	while (line && isempty(line))
-		(free(line), get_next_line(file));
+		(free(line), (line = get_next_line(file)));
 	if (line)
 		return (ft_lstclear(&list, free), free(line), (scene & ~MAP) | ERROR);
 	scene |= load_map(list);

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include "libft.h"
 # include <stdio.h>
@@ -40,17 +40,17 @@
 
 typedef struct s_point
 {
-	uint32_t x;
-	uint32_t y;
+	uint32_t	x;
+	uint32_t	y;
 }	t_point;
 
 typedef struct s_vector
 {
-	double x;
-	double y;
+	double	x;
+	double	y;
 }	t_vector;
 
-typedef	struct s_raycast
+typedef struct s_raycast
 {
 	t_vector	ray_dir;
 	t_vector	side_dist;
@@ -70,7 +70,7 @@ typedef struct s_txt
 	mlx_texture_t	*ea;
 	int32_t			wh;
 	int32_t			ws;
-	int32_t			we;
+	int32_t			wen;
 }	t_txt;
 
 typedef struct s_player
@@ -82,7 +82,7 @@ typedef struct s_player
 
 typedef struct s_map
 {
-    char		**content;
+	char		**content;
 	size_t		x_max;
 	size_t		y_max;
 	t_player	player;	
@@ -91,7 +91,7 @@ typedef struct s_map
 typedef struct s_scene
 {
 	uint8_t		scene;
-    mlx_t		*mlx;
+	mlx_t		*mlx;
 	mlx_image_t	*frame;
 	mlx_image_t	*frame2;
 	t_map		map;
@@ -100,23 +100,22 @@ typedef struct s_scene
 	uint32_t	ceiling;
 }	t_scene;
 
-void	*cub_get(void);
-void	cub_launch(void);
-void	cub_exit(void);
-void	cub_error(char *err_msg);
-uint8_t	load_scene(int file);
-uint8_t	load_setting(char *s, uint8_t *scene);
-uint8_t	load_map(t_list *list);
+void		*cub_get(void);
+void		cub_launch(void);
+void		cub_exit(void);
+void		cub_error(char *err_msg);
+uint8_t		load_scene(int file);
+uint8_t		load_setting(char *s, uint8_t *scene);
+uint8_t		load_map(t_list *list);
 
-void	calc_perp_dist(t_raycast *vars, t_map *map);
-void	move_handler(void* param);
-void	draw_frame(t_scene *data);
-
+void		calc_perp_dist(t_raycast *vars, t_map *map);
+void		move_handler(void *param);
+void		draw_frame(t_scene *data);
 // Vector functions
-t_vector    cub_vec(double x, double y);
-t_vector    cub_vec_add(t_vector a, t_vector b);
+t_vector	cub_vec(double x, double y);
+t_vector	cub_vec_add(t_vector a, t_vector b);
 t_vector	cub_vec_sub(t_vector a, t_vector b);
-t_vector    cub_vec_mul(t_vector a, double b);
-t_vector    cub_vec_rot(t_vector a, double angle);
+t_vector	cub_vec_mul(t_vector a, double b);
+t_vector	cub_vec_rot(t_vector a, double angle);
 
 #endif

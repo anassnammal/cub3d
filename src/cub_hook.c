@@ -33,20 +33,15 @@ void	mouse_hook(t_scene *cub)
 {
 	int			x;
 	int			y;
-	t_vector	mouse_pos;
-	t_vector	dir_to_mouse;
-	double		angle;
 
 	mlx_get_mouse_pos(cub->mlx, &x, &y);
-	mouse_pos = cub_vec(x - SCREEN_X / 2, y - SCREEN_Y / 2);
-	dir_to_mouse = cub_vec_sub(mouse_pos, cub->map.player.pos);
-	angle = atan2(dir_to_mouse.y, dir_to_mouse.x) - \
-	atan2(cub->map.player.dir.y, cub->map.player.dir.x);
-	while (angle > M_PI)
-		angle -= 2 * M_PI;
-	while (angle < -M_PI)
-		angle += 2 * M_PI;
-	rotate_player(&cub->map, angle * cub->mlx->delta_time / 2);
+	if (mlx_is_mouse_down(cub->mlx, MLX_MOUSE_BUTTON_RIGHT))
+	{
+		if (x < SCREEN_X / 2)
+			rotate_player(&cub->map, (cub->mlx->delta_time * -3));
+		else
+			rotate_player(&cub->map, (cub->mlx->delta_time * 3));
+	}
 }
 
 void	move_handler(void *param)
@@ -72,6 +67,6 @@ void	move_handler(void *param)
 		rotate_player(&d->map, d->mlx->delta_time * 3.0);
 	if (mlx_is_key_down(d->mlx, MLX_KEY_LEFT))
 		rotate_player(&d->map, d->mlx->delta_time * -3.0);
-	// mouse_hook(d);
+	mouse_hook(d);
 	draw_frame(d);
 }
