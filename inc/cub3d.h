@@ -68,9 +68,9 @@ typedef struct s_txt
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
-	int32_t			wall_height;
-	int32_t			wall_start;
-	int32_t			wall_end;
+	int32_t			wh;
+	int32_t			ws;
+	int32_t			we;
 }	t_txt;
 
 typedef struct s_player
