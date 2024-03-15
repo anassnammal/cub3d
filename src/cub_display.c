@@ -3,36 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   cub_display.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-hano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anammal <anammal@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:15:15 by sel-hano          #+#    #+#             */
-/*   Updated: 2024/03/14 23:15:17 by sel-hano         ###   ########.fr       */
+/*   Updated: 2024/03/15 03:59:38 by anammal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-uint32_t		get_color(t_txt *texture, int32_t imgx, int32_t imgy) 
+mlx_texture_t	*get_texture(t_txt	*textures, t_raycast *vars)
 {
-	int32_t index;
-	index = (texture->so->width * imgy + imgx) * 4;
-	//TODO: 
-		// protect overflow
+	if (vars->side == SIDE_X && vars->ray_dir.x > 0)
+		return (textures->we);
+	if (vars->side == SIDE_X && vars->ray_dir.x < 0)
+		return (textures->ea);
+	if (vars->side == SIDE_Y && vars->ray_dir.y > 0)
+		return (textures->so);
+	return (textures->no);
+}
 
-	unsigned int r;
-	unsigned int g;
-	unsigned int b;
-	unsigned int a;
-	unsigned int color = 0;
-
-	r = texture->so->pixels[index];
-	g = texture->so->pixels[index + 1];
-	b = texture->so->pixels[index + 2];
-	a = texture->so->pixels[index + 3];
-	color |= r << 24;
-	color |= g << 16;
-	color |= b << 8;
-	color |= a;
+uint32_t		get_color(mlx_texture_t *txt, int32_t imgx, int32_t imgy) 
+{
+	uint32_t	color;
+	int32_t		s;
+	int32_t		i;
+	
+	color = 0;
+	s = (txt->width * imgy + imgx) * 4;
+	i = -1;
+	while (++i < 4)
+	{
+		color |= txt->pixels[s + i];
+		if (i < 3)
+			color <<= 8;
+	}
 	return (color);
 }
 
@@ -41,11 +46,12 @@ void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
 	int32_t		y;
     int32_t     txt_x;
     int32_t     txt_y;
+	mlx_texture_t	*txt;
     double      step;
     double      txt_p;
 
+	txt = get_texture(&data->txt, vars);
     txt_x = (int32_t)(vars->wall_hit * data->txt.so->width);
-	
     if (vars->side == SIDE_X && vars->ray_dir.x > 0)
         txt_x = data->txt.so->width - txt_x - 1;
     if (vars->side == SIDE_Y && vars->ray_dir.y < 0)
@@ -61,7 +67,7 @@ void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
         {
             txt_y = (int32_t)txt_p & (data->txt.so->height - 1);
             txt_p += step;
-			mlx_put_pixel(data->frame, x, y, get_color(&data->txt, txt_x, txt_y));
+			mlx_put_pixel(data->frame, x, y, get_color(txt, txt_x, txt_y));
 		}
 		else
 			mlx_put_pixel(data->frame, x, y, data->floor);
