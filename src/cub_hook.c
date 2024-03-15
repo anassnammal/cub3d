@@ -70,7 +70,7 @@ void		move_handler(void *param)
 		rotate_player(&d->map, d->mlx->delta_time * 3.0);
 	if (mlx_is_key_down(d->mlx, MLX_KEY_LEFT))
 		rotate_player(&d->map, d->mlx->delta_time * -3.0);
-	mouse_hook(d);
+	// mouse_hook(d);
 	draw_frame(d);
 }
 

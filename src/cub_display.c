@@ -15,15 +15,15 @@
 mlx_texture_t	*get_texture(t_txt	*textures, t_raycast *vars)
 {
 	if (vars->side == SIDE_X && vars->ray_dir.x > 0)
-		return (textures->we);
-	if (vars->side == SIDE_X && vars->ray_dir.x < 0)
 		return (textures->ea);
+	if (vars->side == SIDE_X && vars->ray_dir.x < 0)
+		return (textures->we);
 	if (vars->side == SIDE_Y && vars->ray_dir.y > 0)
 		return (textures->so);
 	return (textures->no);
 }
 
-uint32_t		get_color(mlx_texture_t *txt, int32_t imgx, int32_t imgy) 
+uint32_t	get_color(mlx_texture_t *txt, int32_t imgx, int32_t imgy)
 {
 	uint32_t	color;
 	int32_t		s;
@@ -41,32 +41,32 @@ uint32_t		get_color(mlx_texture_t *txt, int32_t imgx, int32_t imgy)
 	return (color);
 }
 
-void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
+void	draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
 {
-	int32_t		y;
-    int32_t     txt_x;
-    int32_t     txt_y;
+	int32_t			y;
+	int32_t			txt_x;
+	int32_t			txt_y;
 	mlx_texture_t	*txt;
-    double      step;
-    double      txt_p;
+	double			step;
+	double			txt_p;
 
 	txt = get_texture(&data->txt, vars);
-    txt_x = (int32_t)(vars->wall_hit * data->txt.so->width);
-    if (vars->side == SIDE_X && vars->ray_dir.x > 0)
-        txt_x = data->txt.so->width - txt_x - 1;
-    if (vars->side == SIDE_Y && vars->ray_dir.y < 0)
-        txt_x = data->txt.so->width - txt_x - 1;
-    step = 1.0 * data->txt.so->height / data->txt.wall_height;
-    txt_p = (data->txt.wall_start - SCREEN_Y / 2 + data->txt.wall_height / 2) * step;
+	txt_x = (int32_t)(vars->wall_hit * txt->width);
+	if (vars->side == SIDE_X && vars->ray_dir.x > 0)
+		txt_x = txt->width - txt_x - 1;
+	if (vars->side == SIDE_Y && vars->ray_dir.y < 0)
+		txt_x = txt->width - txt_x - 1;
+	step = 1.0 * txt->height / data->txt.wall_height;
+	txt_p = (data->txt.wall_start - SCREEN_Y / 2 + data->txt.wall_height / 2) * step;
 	y = 0;
 	while (y < SCREEN_Y)
 	{
 		if (y < data->txt.wall_start)
 			mlx_put_pixel(data->frame, x, y, data->ceiling);
 		else if (y < data->txt.wall_end)
-        {
-            txt_y = (int32_t)txt_p & (data->txt.so->height - 1);
-            txt_p += step;
+		{
+			txt_y = (int32_t)txt_p & (txt->height - 1);
+			txt_p += step;
 			mlx_put_pixel(data->frame, x, y, get_color(txt, txt_x, txt_y));
 		}
 		else
@@ -75,7 +75,7 @@ void		draw_vert_line(t_scene *data, int32_t x, t_raycast *vars)
 	}
 }
 
-void		draw_frame(t_scene *data)
+void	draw_frame(t_scene *data)
 {
 	t_raycast	vars;
 	double		plane_scaler;
@@ -88,13 +88,13 @@ void		draw_frame(t_scene *data)
 		vars.ray_dir = cub_vec_mul(data->map.player.plane, plane_scaler);
 		vars.ray_dir = cub_vec_add(data->map.player.dir, vars.ray_dir);
 		calc_perp_dist(&vars, &data->map);
-        data->txt.wall_height = (int32_t)(SCREEN_X / vars.perp_wall_dist);
-        data->txt.wall_start = -data->txt.wall_height / 2 + SCREEN_Y / 2;
-        data->txt.wall_end = data->txt.wall_height / 2 + SCREEN_Y / 2;
-        if (data->txt.wall_start < 0)
-            data->txt.wall_start = 0;
-        if (data->txt.wall_end >= SCREEN_Y)
-            data->txt.wall_end = SCREEN_Y - 1;
+		data->txt.wall_height = (int32_t)(SCREEN_X / vars.perp_wall_dist);
+		data->txt.wall_start = -data->txt.wall_height / 2 + SCREEN_Y / 2;
+		data->txt.wall_end = data->txt.wall_height / 2 + SCREEN_Y / 2;
+		if (data->txt.wall_start < 0)
+			data->txt.wall_start = 0;
+		if (data->txt.wall_end >= SCREEN_Y)
+			data->txt.wall_end = SCREEN_Y - 1;
 		draw_vert_line(data, x, &vars);
 		x++;
 	}
