@@ -28,6 +28,13 @@ t_vector	cub_vec_add(t_vector a, t_vector b)
 	);
 }
 
+t_vector	cub_vec_sub(t_vector a, t_vector b)
+{
+	return (
+		cub_vec(a.x - b.x, a.y - b.y)
+	);
+}
+
 t_vector	cub_vec_mul(t_vector a, double b)
 {
 	return (

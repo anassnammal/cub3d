@@ -115,6 +115,7 @@ void	draw_frame(t_scene *data);
 // Vector functions
 t_vector    cub_vec(double x, double y);
 t_vector    cub_vec_add(t_vector a, t_vector b);
+t_vector	cub_vec_sub(t_vector a, t_vector b);
 t_vector    cub_vec_mul(t_vector a, double b);
 t_vector    cub_vec_rot(t_vector a, double angle);
 
