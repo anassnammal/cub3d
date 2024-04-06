@@ -91,7 +91,7 @@ void	draw_frame(t_scene *data)
 	x = 0;
 	while (x < SCREEN_X)
 	{
-		plane_scaler = 2 * x / (double)SCREEN_X - 1;
+		plane_scaler = 2 * x / (double)SCREEN_Y - 1;
 		vars.ray_dir = cub_vec_mul(data->map.player.plane, plane_scaler);
 		vars.ray_dir = cub_vec_add(data->map.player.dir, vars.ray_dir);
 		calc_perp_dist(&vars, &data->map);
